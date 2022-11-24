@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6266251779063223619
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6528860596805505542, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505542, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5447995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505542, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_Color.r
+      value: 0.28384948
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505543, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_Name
+      value: Water Tile
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528860596805505561, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+--- !u!1 &895405797077026628 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6528860596805505543, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+  m_PrefabInstance: {fileID: 6266251779063223619}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-2059961181184595741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895405797077026628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b069d83b4b8c1448a165b89245ad36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TileName: Water
+  _renderer: {fileID: 895405797077026629}
+  _highlight: {fileID: 1837075012579959298}
+  _isWalkable: 0
+  OccupiedUnit: {fileID: 0}
+--- !u!212 &895405797077026629 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6528860596805505542, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+  m_PrefabInstance: {fileID: 6266251779063223619}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1837075012579959298 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5731018776840386369, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+  m_PrefabInstance: {fileID: 6266251779063223619}
+  m_PrefabAsset: {fileID: 0}
