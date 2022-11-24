@@ -378,12 +378,20 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/Used Assets/MenuController.cs"
-"Assets/Used Assets/Scripts/GameController.cs"
-"Assets/Used Assets/Scripts/GridManager.cs"
+"Assets/Used Assets/Scripts/Manager/GameManager.cs"
+"Assets/Used Assets/Scripts/Manager/GridManager.cs"
+"Assets/Used Assets/Scripts/Manager/MenuManager.cs"
+"Assets/Used Assets/Scripts/Manager/UnitManager.cs"
 "Assets/Used Assets/Scripts/Tiles/GrassTile.cs"
 "Assets/Used Assets/Scripts/Tiles/MountainTile.cs"
 "Assets/Used Assets/Scripts/Tiles/Tile.cs"
 "Assets/Used Assets/Scripts/Tiles/WaterTile.cs"
+"Assets/Used Assets/Scripts/Units/BaseUnit.cs"
+"Assets/Used Assets/Scripts/Units/Enemy/BaseEnemy.cs"
+"Assets/Used Assets/Scripts/Units/Enemy/Enemy1.cs"
+"Assets/Used Assets/Scripts/Units/Player/BasePlayer.cs"
+"Assets/Used Assets/Scripts/Units/Player/Unit1.cs"
+"Assets/Used Assets/Scripts/Units/ScriptableUnit.cs"
 -langversion:9.0
 
 /deterministic
