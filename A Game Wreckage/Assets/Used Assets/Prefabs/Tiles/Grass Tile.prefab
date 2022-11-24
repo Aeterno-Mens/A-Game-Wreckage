@@ -85,7 +85,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0835472a8569e2c46932e1a58959ab8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseColor: {r: 0.18746284, g: 0.8396226, b: 0.33635145, a: 1}
-  _offsetColor: {r: 0.15533397, g: 0.7264151, b: 0.2860634, a: 1}
+  TileName: Grass
   _renderer: {fileID: 8373310669376136904}
   _highlight: {fileID: 6998733017135842191}
+  _isWalkable: 1
+  OccupiedUnit: {fileID: 0}
+  _baseColor: {r: 0.18746284, g: 0.8396226, b: 0.33635145, a: 1}
+  _offsetColor: {r: 0.15533397, g: 0.7264151, b: 0.2860634, a: 1}

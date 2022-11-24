@@ -86,8 +86,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b069d83b4b8c1448a165b89245ad36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TileName: Water
   _renderer: {fileID: 895405797077026629}
   _highlight: {fileID: 1837075012579959298}
+  _isWalkable: 0
+  OccupiedUnit: {fileID: 0}
 --- !u!212 &895405797077026629 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 6528860596805505542, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}

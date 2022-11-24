@@ -26,8 +26,10 @@ public class GameManager : MonoBehaviour
                 GridManager.Instance.GenerateGrid();
                 break;
             case GameState.SpawnPlayer:
+                UnitManager.Instance.SpawnPlayer();
                 break;
             case GameState.SpawnEnemy:
+                UnitManager.Instance.SpawnEnemy();
                 break;
             case GameState.PlayerTurn:
                 break;

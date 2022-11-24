@@ -45,7 +45,6 @@ public class GridManager : MonoBehaviour
 
                 var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
-                spawnedTile.TileName = spawnedTile.name;
 
                 spawnedTile.Init(x, y);
 
@@ -59,12 +58,12 @@ public class GridManager : MonoBehaviour
     }
 
     public Tile GetUnitSpawnTile() {
-        return _tiles.Where(t => t.Key.x < _width / 2).OrderBy(t => Random.value).First().Value;
+        return _tiles.Where(t => t.Key.x < _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }
 
     public Tile GetEnemySpawnTile()
     {
-        return _tiles.Where(t => t.Key.x > _width / 2).OrderBy(t => Random.value).First().Value;
+        return _tiles.Where(t => t.Key.x > _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }
 
     public Tile GetTileAtPosition(Vector2 pos) {
