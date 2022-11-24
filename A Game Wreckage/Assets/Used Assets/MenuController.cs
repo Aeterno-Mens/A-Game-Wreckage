@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
+using System.IO;
 
 public class MenuController : MonoBehaviour
 {
@@ -19,9 +20,21 @@ public class MenuController : MonoBehaviour
     [Header("Resolution Dropdowns")]
     public TMP_Dropdown resolutionDropdown;
     private Resolution[] resolutions;
+    public int resolutionIndex;
 
+    [Header("Save&Load")]
+    SaveSettings save = new SaveSettings();
     private void Start()
     {
+        if (File.Exists(Application.dataPath + "/settings.json"))
+        {
+            string text = File.ReadAllText(Application.dataPath + "/settings.json");
+            SaveSettings load = JsonUtility.FromJson<SaveSettings>(text);
+            AudioListener.volume = load.masterVolume;
+            volumeSlider.value = load.masterVolume;
+            volumeTextValue.text = load.masterVolume.ToString("0.0");
+            Screen.SetResolution((int)load.width, (int)load.height, Screen.fullScreen);
+        }
         resolutions = Screen.resolutions.Where(resolution => (resolution.refreshRate == 60 && (resolution.width == 800 || (resolution.width == 1280 && resolution.height == 1024) || resolution.width == 1920))).ToArray();
         resolutionDropdown.ClearOptions();
 
@@ -41,18 +54,19 @@ public class MenuController : MonoBehaviour
         
     }
 
-    public void SetResolution(int resolutionIndex)
+    public void SetResolution(int index)
     {
-        Resolution resolution = resolutions[resolutionIndex];// + resolutionIndex * 2 + 1];
-        PlayerPrefs.SetFloat("WTF is WRONG WITH YOu1", resolutions.Length);
-        PlayerPrefs.SetFloat("WTF is WRONG WITH YOu2", resolution.width);
-        PlayerPrefs.SetFloat("WTF is WRONG WITH YOu3", resolution.height);
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        resolutionIndex = index;
     }
 
     public void GraphicsApply()
     {
-        //show Prompt
+        Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, Screen.fullScreen);
+        save.masterVolume = AudioListener.volume;
+        save.width = resolutions[resolutionIndex].width;
+        save.height = resolutions[resolutionIndex].height;
+        string json = JsonUtility.ToJson(save);
+        File.WriteAllText(Application.dataPath + "/settings.json", json);
         StartCoroutine(ConfirmationBox());
     }
 
@@ -69,8 +83,11 @@ public class MenuController : MonoBehaviour
 
     public void VolumeApply()
     {
-        PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
-        //show Prompt
+        save.masterVolume = AudioListener.volume;
+        save.width = Screen.width;
+        save.height = Screen.height;
+        string json = JsonUtility.ToJson(save);
+        File.WriteAllText(Application.dataPath + "/settings.json", json);
         StartCoroutine(ConfirmationBox());
     }
 
@@ -99,4 +116,11 @@ public class MenuController : MonoBehaviour
         yield return new WaitForSeconds(2);
         confirmationPrompt.SetActive(false);
     }
+    private class SaveSettings{
+        public float masterVolume;
+        public int width;
+        public int height;
+    }
 }
+
+

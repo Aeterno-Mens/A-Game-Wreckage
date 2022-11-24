@@ -1159,6 +1159,7 @@ MonoBehaviour:
   defaultVolume: 1
   confirmationPrompt: {fileID: 51757016}
   resolutionDropdown: {fileID: 840765995}
+  resolutionIndex: 0
 --- !u!1 &165361318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,7 +1427,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 162205911}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: VolumeApply
+        m_MethodName: GraphicsApply
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3331,7 +3332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041E\u043A"
+  m_text: "\u041F\u0440\u0438\u043C\u0435\u043D\u0438\u0442\u044C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 677435b9a5d957a469c04a7b4afc4ece, type: 2}
   m_sharedMaterial: {fileID: 6595947922337393951, guid: 677435b9a5d957a469c04a7b4afc4ece, type: 2}
