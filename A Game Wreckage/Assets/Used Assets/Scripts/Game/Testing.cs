@@ -37,7 +37,8 @@ public class Testing : MonoBehaviour
             {
                 for (int i = 0; i < path.Count - 1; ++i)
                 {
-                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x, path[i + 1].y) * 10f + Vector3.one * 5f, Color.green, 5f);
+                    Debug.DrawLine(new Vector3(path[i].x - 5, path[i].y - 5) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x - 5, path[i + 1].y - 5) * 10f + Vector3.one * 5f, Color.green, 5f);
+                    Debug.Log("x1 = " + path[i].x + " y1 = " + path[i].y + " x2 = " + path[i + 1].x + " y2 = " + path[i + 1].y);
                 }
                 //grid.SetValue(position, true);
             }
