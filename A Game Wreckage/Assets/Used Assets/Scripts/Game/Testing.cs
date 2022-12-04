@@ -9,16 +9,18 @@ public class Testing : MonoBehaviour
     [SerializeField] private HeatMapGenericVisual heatMapGenericVisual;
     [SerializeField] private PathfindingDebugStepVisual pathfindingDebugStepVisual;
     [SerializeField] private PathfindingGenericVisual pathfindingGenericVisual;
+    
     private Grid<HeatMapGridObject> grid;
     private Pathfinding pathfinding;
     void Start()
     {
-        grid = new Grid<HeatMapGridObject>(2, 4, 10f, new Vector3(-80,0), (Grid<HeatMapGridObject> g, int x, int y) => new HeatMapGridObject(g, x, y));
+        grid = new Grid<HeatMapGridObject>(2, 4, 10f, new Vector3(-30,0), (Grid<HeatMapGridObject> g, int x, int y) => new HeatMapGridObject(g, x, y));
         //heatMapVisual.SetGrid(grid);
-        pathfinding = new Pathfinding(10, 10, new Vector3(-50, -50));
+        pathfinding = new Pathfinding(20, 20, Vector3.zero);
         heatMapGenericVisual.SetGrid(grid);
         pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
         pathfindingGenericVisual.SetGrid(pathfinding.GetGrid());
+        Tilemap tilemap = new Tilemap(20, 10, 10f, new Vector3(0, -110));
     }
 
     private void Update()
@@ -37,7 +39,7 @@ public class Testing : MonoBehaviour
             {
                 for (int i = 0; i < path.Count - 1; ++i)
                 {
-                    Debug.DrawLine(new Vector3(path[i].x - 5, path[i].y - 5) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x - 5, path[i + 1].y - 5) * 10f + Vector3.one * 5f, Color.green, 5f);
+                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x , path[i + 1].y) * 10f + Vector3.one * 5f, Color.green, 5f);
                     Debug.Log("x1 = " + path[i].x + " y1 = " + path[i].y + " x2 = " + path[i + 1].x + " y2 = " + path[i + 1].y);
                 }
                 //grid.SetValue(position, true);

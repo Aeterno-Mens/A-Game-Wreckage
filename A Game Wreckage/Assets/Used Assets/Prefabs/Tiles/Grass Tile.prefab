@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6528860596805505542, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c5486ecfa6fc7514ea8374798b080234, type: 3}
     - target: {fileID: 6528860596805505543, guid: 4ece0c5e871573342b311d1fa30c5f36, type: 3}
       propertyPath: m_Name
       value: Grass Tile
@@ -90,5 +94,5 @@ MonoBehaviour:
   _highlight: {fileID: 6998733017135842191}
   _isWalkable: 1
   OccupiedUnit: {fileID: 0}
-  _baseColor: {r: 0.18746284, g: 0.8396226, b: 0.33635145, a: 1}
-  _offsetColor: {r: 0.15533397, g: 0.7264151, b: 0.2860634, a: 1}
+  _baseColor: {r: 0.44770378, g: 0.9056604, b: 0.47432917, a: 1}
+  _offsetColor: {r: 1, g: 1, b: 1, a: 1}
