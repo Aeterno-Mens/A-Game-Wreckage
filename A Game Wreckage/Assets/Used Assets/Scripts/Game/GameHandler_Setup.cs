@@ -4,11 +4,14 @@ using UnityEngine;
 using CodeMonkey;
 using CodeMonkey.Utils;
 using CodeMonkey.MonoBehaviours;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameHandler_Setup : MonoBehaviour {
 
     [SerializeField] private CameraFollow cameraFollow;
-    private Vector3 cameraPosition = new Vector3(117,60);
+    [SerializeField] private GameObject PauseMenu;
+    private Vector3 cameraPosition = new Vector3(97,60);
     private float orthoSize = 60f;
 
     private void Start() {
@@ -19,7 +22,7 @@ public class GameHandler_Setup : MonoBehaviour {
         float cameraSpeed = 100f;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
             //ограничения камеры, чтобы мы за поле не убегали
-            //if(cameraPosition.x > 117)
+            //if(cameraPosition.x > 67)
                 cameraPosition += new Vector3(-1, 0) * cameraSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
@@ -43,4 +46,27 @@ public class GameHandler_Setup : MonoBehaviour {
         }
     }
 
+    public void Pause()
+    {
+        PauseMenu.SetActive(true);
+        Debug.Log("yay");
+        Time.timeScale = 0f;
+    }
+
+    public void Resume()
+    {
+        PauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void Home()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
+    }
+
+    private bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
 }

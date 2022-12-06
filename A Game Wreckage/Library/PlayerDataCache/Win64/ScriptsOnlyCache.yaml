@@ -16,6 +16,7 @@ ScriptsOnlyBuild:
     - PathfindingGenericVisual
     - ScriptableUnit
     - Testing
+    - TilemapGenericVisual
     - Unit1
     - UnitManager
     - WaterTile
@@ -67,6 +68,8 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
   serializedClasses:
+    Assembly-CSharp:
+    - TilemapGenericVisual/TilemapSpriteUV
     Unity.TextMeshPro:
     - TMPro.FaceInfo_Legacy
     - TMPro.FontAssetCreationSettings
@@ -271,6 +274,15 @@ ScriptsOnlyBuild:
   - assembly: UnityEngine.AudioModule
     fullTypeName: UnityEngine.AudioSource
     methodName: Play
+  - assembly: Assembly-CSharp
+    fullTypeName: GameHandler_Setup
+    methodName: Home
+  - assembly: Assembly-CSharp
+    fullTypeName: GameHandler_Setup
+    methodName: Pause
+  - assembly: Assembly-CSharp
+    fullTypeName: GameHandler_Setup
+    methodName: Resume
   sceneClasses:
     Assets/Used Assets/Scenes/Game.unity:
     - Class: 1
@@ -294,29 +306,35 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 2606}
+      Script: {instanceID: 1620}
     - Class: 114
-      Script: {instanceID: 2722}
+      Script: {instanceID: 2298}
     - Class: 114
-      Script: {instanceID: 2878}
+      Script: {instanceID: 2608}
     - Class: 114
-      Script: {instanceID: 3138}
+      Script: {instanceID: 2724}
     - Class: 114
-      Script: {instanceID: 4554}
+      Script: {instanceID: 2880}
     - Class: 114
-      Script: {instanceID: 4616}
+      Script: {instanceID: 3140}
     - Class: 114
-      Script: {instanceID: 6040}
+      Script: {instanceID: 3502}
     - Class: 114
-      Script: {instanceID: 6068}
+      Script: {instanceID: 4044}
     - Class: 114
-      Script: {instanceID: 6814}
+      Script: {instanceID: 4560}
     - Class: 114
-      Script: {instanceID: 7022}
+      Script: {instanceID: 4622}
     - Class: 114
-      Script: {instanceID: 7452}
+      Script: {instanceID: 6046}
     - Class: 114
-      Script: {instanceID: 31044}
+      Script: {instanceID: 6074}
+    - Class: 114
+      Script: {instanceID: 6820}
+    - Class: 114
+      Script: {instanceID: 7028}
+    - Class: 114
+      Script: {instanceID: 7458}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -363,49 +381,49 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1620}
     - Class: 114
-      Script: {instanceID: 2298}
+      Script: {instanceID: 2302}
     - Class: 114
-      Script: {instanceID: 2358}
+      Script: {instanceID: 2360}
     - Class: 114
-      Script: {instanceID: 2878}
+      Script: {instanceID: 2880}
     - Class: 114
-      Script: {instanceID: 2896}
+      Script: {instanceID: 2898}
     - Class: 114
-      Script: {instanceID: 3138}
+      Script: {instanceID: 3140}
     - Class: 114
-      Script: {instanceID: 3500}
+      Script: {instanceID: 3502}
     - Class: 114
-      Script: {instanceID: 4224}
+      Script: {instanceID: 4230}
     - Class: 114
-      Script: {instanceID: 4488}
+      Script: {instanceID: 4494}
     - Class: 114
-      Script: {instanceID: 4802}
+      Script: {instanceID: 4808}
     - Class: 114
-      Script: {instanceID: 5138}
+      Script: {instanceID: 5144}
     - Class: 114
-      Script: {instanceID: 5884}
+      Script: {instanceID: 5890}
     - Class: 114
-      Script: {instanceID: 5954}
+      Script: {instanceID: 5960}
     - Class: 114
-      Script: {instanceID: 6068}
+      Script: {instanceID: 6074}
     - Class: 114
-      Script: {instanceID: 6810}
+      Script: {instanceID: 6816}
     - Class: 114
-      Script: {instanceID: 6814}
+      Script: {instanceID: 6820}
     - Class: 114
-      Script: {instanceID: 6822}
+      Script: {instanceID: 6828}
     - Class: 114
-      Script: {instanceID: 7022}
-    - Class: 114
-      Script: {instanceID: 7452}
+      Script: {instanceID: 7028}
     - Class: 114
       Script: {instanceID: 7458}
     - Class: 114
-      Script: {instanceID: 7478}
+      Script: {instanceID: 7464}
     - Class: 114
-      Script: {instanceID: 8378}
+      Script: {instanceID: 7484}
     - Class: 114
-      Script: {instanceID: 8812}
+      Script: {instanceID: 8384}
+    - Class: 114
+      Script: {instanceID: 8818}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -452,23 +470,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1974}
     - Class: 114
-      Script: {instanceID: 2878}
+      Script: {instanceID: 2880}
     - Class: 114
-      Script: {instanceID: 3138}
+      Script: {instanceID: 3140}
     - Class: 114
-      Script: {instanceID: 3688}
+      Script: {instanceID: 3690}
     - Class: 114
-      Script: {instanceID: 5394}
+      Script: {instanceID: 5400}
     - Class: 114
-      Script: {instanceID: 6000}
+      Script: {instanceID: 6006}
     - Class: 114
-      Script: {instanceID: 6412}
+      Script: {instanceID: 6418}
     - Class: 114
-      Script: {instanceID: 6814}
+      Script: {instanceID: 6820}
     - Class: 114
-      Script: {instanceID: 7452}
+      Script: {instanceID: 7458}
     - Class: 114
-      Script: {instanceID: 8964}
+      Script: {instanceID: 8970}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -574,6 +592,12 @@ ScriptsOnlyBuild:
     className: GrassTile
   - hash:
       serializedVersion: 2
+      Hash: e2b05e5f06f79799c4ddeef8521be5ef
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PathfindingDebugStepVisual
+  - hash:
+      serializedVersion: 2
       Hash: e17913b6bbc531035935422749a0842c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -640,7 +664,7 @@ ScriptsOnlyBuild:
     className: IKManager2D
   - hash:
       serializedVersion: 2
-      Hash: 12753d4b532225cd85fad40c30a9040d
+      Hash: 459a5e92563f94297ac5211f285a8b80
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Testing
@@ -868,6 +892,12 @@ ScriptsOnlyBuild:
     className: UnityOnControllerColliderHitMessageListener
   - hash:
       serializedVersion: 2
+      Hash: f9350725ff819b68d6c6abddaf1cb2ca
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TilemapGenericVisual
+  - hash:
+      serializedVersion: 2
       Hash: 27ec3360f0c0a6803ba71cc3106480b8
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -928,7 +958,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeGeometryCache
   - hash:
       serializedVersion: 2
-      Hash: a36f49887c4d14ab6ae66bab39ba072d
+      Hash: 76b39d6062eef2fd54f87375989ae2f6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameHandler_Setup
@@ -1234,7 +1264,7 @@ ScriptsOnlyBuild:
     className: CanvasScaler
   - hash:
       serializedVersion: 2
-      Hash: dbcd49627cb1706cde79798d855ddf5e
+      Hash: 2790207ef13488f1859a953ab6ab9eab
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MenuController
@@ -1574,12 +1604,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: e2b05e5f06f79799c4ddeef8521be5ef
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PathfindingDebugStepVisual
   platform: 19
   scenePathNames:
   - Assets/Used Assets/Scenes/MainMenu.unity

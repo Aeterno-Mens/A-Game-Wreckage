@@ -29,6 +29,9 @@ public class MenuController : MonoBehaviour
     [SerializeField] bool bot;
     [SerializeField] int map;
     [SerializeField] int levelToLoad;
+    [Header("Loading Screen")]
+    [SerializeField] private GameObject LoadingScreen;
+    [SerializeField] private Slider LoadingBarFill;
     private void Start()
     {
         if (File.Exists(Application.dataPath + "/settings.json"))
@@ -124,7 +127,21 @@ public class MenuController : MonoBehaviour
 
     public void Game_Start()
     {
-        SceneManager.LoadScene(levelToLoad);
+        StartCoroutine(LoadSceneAsync());
+    }
+
+    IEnumerator LoadSceneAsync()
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(levelToLoad);
+
+        LoadingScreen.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+            LoadingBarFill.value = progressValue;
+            yield return null;
+        }
     }
     private class SaveSettings{
         public float masterVolume;

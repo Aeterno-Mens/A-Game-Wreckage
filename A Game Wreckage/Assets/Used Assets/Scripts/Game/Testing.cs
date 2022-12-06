@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using UnityEngine.EventSystems;
 
 public class Testing : MonoBehaviour
 {
@@ -9,23 +10,32 @@ public class Testing : MonoBehaviour
     [SerializeField] private HeatMapGenericVisual heatMapGenericVisual;
     [SerializeField] private PathfindingDebugStepVisual pathfindingDebugStepVisual;
     [SerializeField] private PathfindingGenericVisual pathfindingGenericVisual;
+    [SerializeField] private TilemapGenericVisual tilemapGenericVisual;
     
     private Grid<HeatMapGridObject> grid;
     private Pathfinding pathfinding;
+    private Tilemap tilemap;
+    private Tilemap.TilemapObject.TilemapSprite tilemapSprite = Tilemap.TilemapObject.TilemapSprite.None;
+
+    public bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
     void Start()
     {
         grid = new Grid<HeatMapGridObject>(2, 4, 10f, new Vector3(-30,0), (Grid<HeatMapGridObject> g, int x, int y) => new HeatMapGridObject(g, x, y));
         //heatMapVisual.SetGrid(grid);
-        pathfinding = new Pathfinding(20, 20, Vector3.zero);
+        pathfinding = new Pathfinding(25, 25, Vector3.zero);
         heatMapGenericVisual.SetGrid(grid);
         pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
         pathfindingGenericVisual.SetGrid(pathfinding.GetGrid());
-        Tilemap tilemap = new Tilemap(20, 10, 10f, new Vector3(0, -110));
+        tilemap = new Tilemap(25, 25, 10f, Vector3.zero);//new Vector3(0, -110));
+        tilemap.SetTilemapVisual(tilemapGenericVisual);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !IsMouseOverUI())
         {
             //grid.SetValue(UtilsClass.GetMouseWorldPosition(), true);
             Vector3 position = UtilsClass.GetMouseWorldPosition();
@@ -44,6 +54,7 @@ public class Testing : MonoBehaviour
                 }
                 //grid.SetValue(position, true);
             }
+            tilemap.SetTilemapSprite(position, tilemapSprite);
         }
         if (Input.GetMouseButtonDown(1))
         {
@@ -51,6 +62,27 @@ public class Testing : MonoBehaviour
             Vector3 position = UtilsClass.GetMouseWorldPosition();
             pathfinding.GetGrid().GetXY(position, out int x, out int y);
             pathfinding.GetNode(x,y).SetIsWalkable(!pathfinding.GetNode(x,y).isWalkable);
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (tilemapSprite == Tilemap.TilemapObject.TilemapSprite.None)
+                tilemapSprite = Tilemap.TilemapObject.TilemapSprite.Grass;
+            else if (tilemapSprite == Tilemap.TilemapObject.TilemapSprite.Grass)
+                tilemapSprite = Tilemap.TilemapObject.TilemapSprite.Water;
+            else if (tilemapSprite == Tilemap.TilemapObject.TilemapSprite.Water)
+                tilemapSprite = Tilemap.TilemapObject.TilemapSprite.Mountain;
+            else
+                tilemapSprite = Tilemap.TilemapObject.TilemapSprite.None;
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            tilemap.Save();
+            Debug.Log("saved...it seems so at least");
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            tilemap.Load();
+            Debug.Log("Loaded");
         }
     }
 }
