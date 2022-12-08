@@ -11,7 +11,8 @@ public class PathNode
     public int gCost;
     public int hCost;
     public int fCost;
-    public bool isWalkable;
+    //1 - трава, 2 - вода, 3 - гора
+    public int type ;
 
     public PathNode CameFromNode;
     public PathNode(Grid<PathNode> grid, int x, int y)
@@ -19,7 +20,7 @@ public class PathNode
         this.grid = grid;
         this.x = x;
         this.y = y;
-        isWalkable = true;
+        type = 1;
     }
 
     public void CalculateFCost()
@@ -27,13 +28,13 @@ public class PathNode
         fCost = gCost + hCost;
     }
 
-    public void SetIsWalkable(bool isWalkable)
+    public void SetIsWalkable(int type1)
     {
-        this.isWalkable = isWalkable;
+        this.type = type1;
         grid.TriggeredGridObjectChanged(x, y);
     }
     public override string ToString()
     {
-        return x + "," + y;
+        return null;//x + "," + y;
     }
 }

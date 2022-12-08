@@ -54,7 +54,7 @@ public class GridManager : MonoBehaviour
 
         _cam.transform.position = new Vector3(_width/2f - 0.5f, _height/2f - 0.5f, -10);
 
-        GameManager.Instance.ChangeState(GameState.SpawnPlayer);
+        GameManager.Instance.ChangeState(GameState.SpawnPlayer1);
     }
 
     public Tile GetUnitSpawnTile() {

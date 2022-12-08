@@ -48,7 +48,7 @@ public class PathfindingGenericVisual : MonoBehaviour
 
                 PathNode pathNode = grid.GetValue(x, y);
 
-                if (pathNode.isWalkable)
+                if (pathNode.type == 1)
                 {
                     quadSize = Vector3.zero;
                 }

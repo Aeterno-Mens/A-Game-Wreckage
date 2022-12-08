@@ -67,7 +67,7 @@ public class Pathfinding
                 {
                     continue;
                 }
-                if (!neighbourNode.isWalkable)
+                if (neighbourNode.type!=1)
                 {
                     continue;
                 }

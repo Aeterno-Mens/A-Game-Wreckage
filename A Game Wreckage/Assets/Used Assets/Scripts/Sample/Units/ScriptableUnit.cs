@@ -10,7 +10,7 @@ public class ScriptableUnit : ScriptableObject
     public BaseUnit UnitPrefab;
 }
 
-public enum Faction {
-    Player = 0,
-    Enemy = 1
-}
+//public enum Faction {
+ //   Player = 0,
+ //   Enemy = 1
+//}

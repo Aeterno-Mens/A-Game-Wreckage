@@ -30,22 +30,22 @@ public abstract class Tile : MonoBehaviour
     }
 
     void OnMouseDown() {
-        if (GameManager.Instance.GameState != GameState.PlayerTurn) return;
+        if (GameManager.Instance.GameState != GameState.Player1Turn) return;
 
         if (OccupiedUnit != null) {
-            if (OccupiedUnit.Faction == Faction.Player) UnitManager.Instance.SetSelectedPlayerUnit((BasePlayer)OccupiedUnit);
+            if (OccupiedUnit.Faction == Faction.Player1) UnitManager.Instance.SetSelectedPlayer1Unit((BasePlayer)OccupiedUnit);
             else {
                 if (UnitManager.Instance.SelectedUnit != null) {
                     var enemy = (BaseEnemy) OccupiedUnit;
                     Destroy(enemy.gameObject);
-                    UnitManager.Instance.SetSelectedPlayerUnit(null);
+                    UnitManager.Instance.SetSelectedPlayer1Unit(null);
                 }
             }
         }
         else {
             if (UnitManager.Instance.SelectedUnit != null) {
                 SetUnit(UnitManager.Instance.SelectedUnit);
-                UnitManager.Instance.SetSelectedPlayerUnit(null);
+                UnitManager.Instance.SetSelectedPlayer1Unit(null);
             }
         }
 

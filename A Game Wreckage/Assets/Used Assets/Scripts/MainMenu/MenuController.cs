@@ -13,6 +13,9 @@ public class MenuController : MonoBehaviour
     [SerializeField] private TMP_Text volumeTextValue = null;
     [SerializeField] private Slider volumeSlider = null;
     [SerializeField] private float defaultVolume = 1.0f;
+    [SerializeField] private AudioSource bgmusic;
+    [SerializeField] public AudioSource Eemusic;
+    [SerializeField] public AudioSource reservemusic;
 
     [Header("Confirmation")]
     [SerializeField] private GameObject confirmationPrompt = null;
@@ -27,7 +30,7 @@ public class MenuController : MonoBehaviour
 
     [Header("GameParameters")]
     [SerializeField] bool bot;
-    [SerializeField] int map;
+    [SerializeField] int map = 2;
     [SerializeField] int levelToLoad;
     [Header("Loading Screen")]
     [SerializeField] private GameObject LoadingScreen;
@@ -118,6 +121,11 @@ public class MenuController : MonoBehaviour
         }
     }
 
+    public void SetMap(int map1)
+    {
+        map = map1;
+    }
+
     public IEnumerator ConfirmationBox()
     {
         confirmationPrompt.SetActive(true);
@@ -127,6 +135,8 @@ public class MenuController : MonoBehaviour
 
     public void Game_Start()
     {
+        DataHolder.bot = bot;
+        DataHolder.map = map;
         StartCoroutine(LoadSceneAsync());
     }
 
@@ -142,6 +152,27 @@ public class MenuController : MonoBehaviour
             LoadingBarFill.value = progressValue;
             yield return null;
         }
+    }
+    bool placeholder = false;
+    AudioSource source;
+    public void ChangeAudio()
+    {
+        if (placeholder)
+        {
+            placeholder = false;
+            bgmusic.clip = reservemusic.clip;
+            bgmusic.Play();
+        }
+        else {
+              bgmusic.clip = Eemusic.clip;
+              bgmusic.Play();
+              placeholder = true;
+        }
+    }
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F4))
+            ChangeAudio();
     }
     private class SaveSettings{
         public float masterVolume;

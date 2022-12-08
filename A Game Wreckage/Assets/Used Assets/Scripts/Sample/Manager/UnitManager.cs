@@ -17,39 +17,39 @@ public class UnitManager : MonoBehaviour
         _units = Resources.LoadAll<ScriptableUnit>("Units").ToList();
     }
 
-    public void SpawnPlayer() {
+    public void SpawnPlayer1() {
         var unitCount = 1;
 
         for (int i = 0; i < unitCount; i++) {
-            var randomPrefab = GetRandomUnit<BasePlayer>(Faction.Player);
+            var randomPrefab = GetRandomUnit<BasePlayer>(Faction.Player1);
             var spawnedUnit = Instantiate(randomPrefab);
             var randomSpawnTile = GridManager.Instance.GetUnitSpawnTile();
 
             randomSpawnTile.SetUnit(spawnedUnit);
         }
 
-        GameManager.Instance.ChangeState(GameState.SpawnEnemy);
+        GameManager.Instance.ChangeState(GameState.SpawnPlayer2);
     }
 
-    public void SpawnEnemy() {
+    public void SpawnPlayer2() {
         var unitCount = 1;
 
         for (int i = 0; i < unitCount; i++) {
-            var randomPrefab = GetRandomUnit<BaseEnemy>(Faction.Enemy);
+            var randomPrefab = GetRandomUnit<BaseEnemy>(Faction.Player2);
             var spawnedUnit = Instantiate(randomPrefab);
             var randomSpawnTile = GridManager.Instance.GetUnitSpawnTile();
 
             randomSpawnTile.SetUnit(spawnedUnit);
         }
 
-        GameManager.Instance.ChangeState(GameState.PlayerTurn);
+        GameManager.Instance.ChangeState(GameState.Player1Turn);
     }
 
     private T GetRandomUnit<T>(Faction faction) where T : BaseUnit {
         return (T)_units.Where(u => u.Faction == faction).OrderBy(o => Random.value).First().UnitPrefab;
     }
 
-    public void SetSelectedPlayerUnit(BasePlayer unit) {
+    public void SetSelectedPlayer1Unit(BasePlayer unit) {
         SelectedUnit = unit;
         MenuManager.Instance.ShowSelectedUnit(unit);
     }

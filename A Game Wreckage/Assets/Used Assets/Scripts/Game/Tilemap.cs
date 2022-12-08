@@ -21,6 +21,12 @@ public class Tilemap
         }
     }
 
+    public TilemapObject.TilemapSprite GetTilemapSprite(Vector3 position)
+    {
+        TilemapObject a = grid.GetValue(position);
+        return a.GetTilemapSprite();
+    }
+
     public void SetTilemapVisual(TilemapGenericVisual tilemapVisual)
     {
         tilemapVisual.SetGrid(this, grid);
@@ -47,9 +53,9 @@ public class Tilemap
         SaveSystem.SaveObject(saveObject);
     }
 
-    public void Load()
+    public void Load(string filename)
     {
-        SaveObject saveObject =  SaveSystem.LoadMostRecentObject<SaveObject>();
+        SaveObject saveObject =  SaveSystem.LoadObject<SaveObject>(filename);
         foreach (TilemapObject.SaveObject tilemapObjectSaveObject in saveObject.tilemapObjectSaveObjectArray)
         {
             TilemapObject tilemapObject = grid.GetValue(tilemapObjectSaveObject.x, tilemapObjectSaveObject.y);
@@ -90,7 +96,7 @@ public class Tilemap
         //этот оверрайд для отображения человеческого, ну или проверки желаемых значений динамически
         public override string ToString()
         {
-            return tilemapSprite.ToString();//null;
+            return null;//tilemapSprite.ToString();
         }
 
         [System.Serializable]
@@ -116,5 +122,6 @@ public class Tilemap
         {
             tilemapSprite = saveObject.tilemapSprite;
         }
+
     }
 }
