@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1584606283298261873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.6228, y: 0.5219, z: 0}
-  m_LocalScale: {x: 0.4139593, y: 0.4112458, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,5 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitName: Enemy
-  OccupiedTile: {fileID: 0}
+  x: 0
+  y: 0
   Faction: 1

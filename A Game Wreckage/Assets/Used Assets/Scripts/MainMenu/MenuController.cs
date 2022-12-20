@@ -126,6 +126,11 @@ public class MenuController : MonoBehaviour
         map = map1;
     }
 
+    public void SetBot(bool bot1)
+    {
+        bot = bot1;
+    }
+
     public IEnumerator ConfirmationBox()
     {
         confirmationPrompt.SetActive(true);

@@ -12,7 +12,8 @@ public class PathNode
     public int hCost;
     public int fCost;
     //1 - трава, 2 - вода, 3 - гора
-    public int type ;
+    public int type;
+    public bool occupied;
 
     public PathNode CameFromNode;
     public PathNode(Grid<PathNode> grid, int x, int y)
@@ -21,6 +22,7 @@ public class PathNode
         this.x = x;
         this.y = y;
         type = 1;
+        occupied = false;
     }
 
     public void CalculateFCost()
@@ -28,10 +30,20 @@ public class PathNode
         fCost = gCost + hCost;
     }
 
-    public void SetIsWalkable(int type1)
+    public void SetIsWalkable(Tilemap.TilemapObject.TilemapSprite tilemapSprite)
     {
-        this.type = type1;
+        if (tilemapSprite == Tilemap.TilemapObject.TilemapSprite.Grass)
+            this.type = 1;
+        else if (tilemapSprite == Tilemap.TilemapObject.TilemapSprite.Water)
+            this.type = 2;
+        else
+            this.type = 3;
         grid.TriggeredGridObjectChanged(x, y);
+    }
+
+    public void SetIsOccupied(bool occupation)
+    {
+        this.occupied = occupation;
     }
     public override string ToString()
     {

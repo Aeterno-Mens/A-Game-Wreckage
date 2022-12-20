@@ -12,9 +12,10 @@ public class GridHandler : MonoBehaviour
     [SerializeField] private PathfindingGenericVisual pathfindingGenericVisual;
     [SerializeField] private TilemapGenericVisual tilemapGenericVisual;
     [SerializeField] private string[] saves;
-    
+    [SerializeField] private Base base1;
+    [SerializeField] private Base base2;
     private Grid<HeatMapGridObject> grid;
-    private Pathfinding pathfinding;
+    public Pathfinding pathfinding;
     private Tilemap tilemap;
     private Tilemap.TilemapObject.TilemapSprite tilemapSprite = Tilemap.TilemapObject.TilemapSprite.None;
     public static GridHandler Instance;
@@ -39,6 +40,9 @@ public class GridHandler : MonoBehaviour
         pathfindingGenericVisual.SetGrid(pathfinding.GetGrid());
         tilemap = new Tilemap(25, 25, 10f, Vector3.zero);//new Vector3(0, -110));
         tilemap.SetTilemapVisual(tilemapGenericVisual);
+        base1.OccupieNode();
+        base2.OccupieNode();
+        GameHandler_Setup.Instance.ChangeState(GameState.Player1Turn);
     }
 
     private void Update()
@@ -57,19 +61,28 @@ public class GridHandler : MonoBehaviour
             {
                 for (int i = 0; i < path.Count - 1; ++i)
                 {
-                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x , path[i + 1].y) * 10f + Vector3.one * 5f, Color.green, 5f);
+                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x , path[i + 1].y) * 10f + Vector3.one * 5f, Color.yellow, 5f, false);
                     Debug.Log("x1 = " + path[i].x + " y1 = " + path[i].y + " x2 = " + path[i + 1].x + " y2 = " + path[i + 1].y);
                 }
                 //grid.SetValue(position, true);
             }
             tilemap.SetTilemapSprite(position, tilemapSprite);
+            if (pathfinding.GetNode(x, y) != null)
+            {
+                pathfinding.GetNode(x, y).SetIsWalkable(tilemapSprite);
+            }
         }
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log(tilemap.GetTilemapSprite(UtilsClass.GetMouseWorldPosition()));
             Vector3 position = UtilsClass.GetMouseWorldPosition();
             pathfinding.GetGrid().GetXY(position, out int x, out int y);
-            pathfinding.GetNode(x,y).SetIsWalkable(2);
+            
+            Debug.Log("position: "+ position + "tile: "+tilemap.GetTilemapSprite(position) + " x:" + x + " y:" + y);
+            if (pathfinding.GetNode(x, y) != null)
+            {
+                Debug.Log("type: " + pathfinding.GetNode(x, y).type + " occupation = "+ pathfinding.GetNode(x, y).occupied);
+                //pathfinding.GetNode(x, y).SetIsWalkable(Tilemap.TilemapObject.TilemapSprite.Water);
+            }
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -90,6 +103,16 @@ public class GridHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             tilemap.Load("save_"+map);
+                for(int i = 0; i < pathfinding.GetGrid().GetWidth(); i++)
+            {
+                for(int j = 0; j < pathfinding.GetGrid().GetHeight(); ++j)
+                {
+
+                    Vector3 a = new Vector3(i*10+0.1f, j*10+0.1f, 0);
+                    Debug.Log("x:"+(i * 10 + 0.1f) +" y:"+(j * 10 + 0.1f) +" = "+tilemap.GetTilemapSprite(a));
+                    pathfinding.GetNode(i, j).SetIsWalkable(tilemap.GetTilemapSprite(a));
+                }
+            }
             Debug.Log("Loaded");
         }
     }

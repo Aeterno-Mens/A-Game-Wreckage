@@ -18,6 +18,8 @@ public class GameHandler_Setup : MonoBehaviour {
     public GameState GameState;
     public int map = 0;
     public bool bot = false;
+    public GameObject unit;
+    [SerializeField] public Faction playerTurn;
     void Awake()
     {
         bot = DataHolder.bot;
@@ -28,7 +30,15 @@ public class GameHandler_Setup : MonoBehaviour {
         cameraFollow.Setup(() => cameraPosition, () => orthoSize, true, true);
         ChangeState(GameState.GenerateGrid);
     }
+    public void Create(GameObject prefab)
+    {
+        GameHandler_Setup.Instance.unit = prefab;
+        if (GameHandler_Setup.Instance.GameState == GameState.Player1Turn)
+            GameHandler_Setup.Instance.ChangeState(GameState.SpawnPlayer1);
+        else if (GameHandler_Setup.Instance.GameState == GameState.Player2Turn)
+            GameHandler_Setup.Instance.ChangeState(GameState.SpawnPlayer2);
 
+    }
     private void Update() {
         float cameraSpeed = 100f;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
@@ -54,6 +64,21 @@ public class GameHandler_Setup : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.KeypadMinus) || Input.mouseScrollDelta.y < 0)  {
             //if(orthoSize<100f)
             orthoSize += 10f;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseMenu.SetActive(!PauseMenu.activeSelf);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (playerTurn == Faction.Player1)
+            {
+                playerTurn = Faction.Player2;
+                GameHandler_Setup.Instance.ChangeState(GameState.Player2Turn);   
+            }
+            else if (playerTurn == Faction.Player2)
+            {
+                playerTurn = Faction.Player1;
+                GameHandler_Setup.Instance.ChangeState(GameState.Player1Turn);
+            }
         }
     }
 
@@ -85,21 +110,33 @@ public class GameHandler_Setup : MonoBehaviour {
                 GridHandler.Instance.GenerateGrid();
                 break;
             case GameState.SpawnPlayer1:
-                UnitManager.Instance.SpawnPlayer1();
+                UnitHandler.Instance.SpawnPlayer1();
                 break;
             case GameState.SpawnPlayer2:
-                UnitManager.Instance.SpawnPlayer2();
+                UnitHandler.Instance.SpawnPlayer2();
                 break;
             case GameState.Player1Turn:
+                playerTurn = Faction.Player1;
                 break;
             case GameState.Player2Turn:
+                playerTurn = Faction.Player2;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
     }
-}
 
+    public static string GetGameObjectPath(GameObject obj)
+    {
+        string path = "/" + obj.name;
+        while (obj.transform.parent != null)
+        {
+            obj = obj.transform.parent.gameObject;
+            path = "/" + obj.name + path;
+        }
+        return path;
+    }
+}
 public enum GameState
 {
     GenerateGrid = 0,

@@ -48,6 +48,7 @@ public class Pathfinding
         }
         startNode.gCost = 0;
         startNode.hCost = CalculateDistanceCost(startNode, endNode);
+        Debug.Log(startNode.hCost);
         startNode.CalculateFCost();
 
         //пробегаемся по гриду в поисках оптимального пути пока не дойдем
@@ -68,6 +69,10 @@ public class Pathfinding
                     continue;
                 }
                 if (neighbourNode.type!=1)
+                {
+                    continue;
+                }
+                if (neighbourNode.occupied == true)
                 {
                     continue;
                 }
@@ -128,7 +133,7 @@ public class Pathfinding
             currentNode = currentNode.CameFromNode;
         }
         path.Reverse();
-        Debug.Log(path);
+        //Debug.Log(path);
         return path;
     }
     private int CalculateDistanceCost(PathNode a, PathNode b) {
