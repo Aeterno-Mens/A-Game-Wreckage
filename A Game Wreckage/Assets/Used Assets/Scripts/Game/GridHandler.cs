@@ -7,20 +7,22 @@ using UnityEngine.EventSystems;
 public class GridHandler : MonoBehaviour
 {
     //[SerializeField] private HeatMapVisual heatMapVisual;
-    [SerializeField] private HeatMapGenericVisual heatMapGenericVisual;
+    //[SerializeField] private HeatMapGenericVisual heatMapGenericVisual;
     //[SerializeField] private PathfindingDebugStepVisual pathfindingDebugStepVisual;
     [SerializeField] private PathfindingGenericVisual pathfindingGenericVisual;
     [SerializeField] private TilemapGenericVisual tilemapGenericVisual;
     [SerializeField] private string[] saves;
-    [SerializeField] private Base base1;
-    [SerializeField] private Base base2;
-    private Grid<HeatMapGridObject> grid;
+    [SerializeField] public Base base1;
+    [SerializeField] public Base base2;
+    //private Grid<HeatMapGridObject> grid;
     public Pathfinding pathfinding;
     private Tilemap tilemap;
     private Tilemap.TilemapObject.TilemapSprite tilemapSprite = Tilemap.TilemapObject.TilemapSprite.None;
     public static GridHandler Instance;
     public GameObject GH;
     public int map;
+    //private bool space = false;
+
     void Awake()
     {
         Instance = this;
@@ -32,10 +34,10 @@ public class GridHandler : MonoBehaviour
     public void GenerateGrid()
     {
         map = GH.GetComponent<GameHandler_Setup>().map;
-        grid = new Grid<HeatMapGridObject>(2, 4, 10f, new Vector3(-30, 0), (Grid<HeatMapGridObject> g, int x, int y) => new HeatMapGridObject(g, x, y));
+        //grid = new Grid<HeatMapGridObject>(2, 4, 10f, new Vector3(-30, 0), (Grid<HeatMapGridObject> g, int x, int y) => new HeatMapGridObject(g, x, y));
         //heatMapVisual.SetGrid(grid);
         pathfinding = new Pathfinding(25, 25, Vector3.zero);
-        heatMapGenericVisual.SetGrid(grid);
+        //heatMapGenericVisual.SetGrid(grid);
         //pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
         pathfindingGenericVisual.SetGrid(pathfinding.GetGrid());
         tilemap = new Tilemap(25, 25, 10f, Vector3.zero);//new Vector3(0, -110));
@@ -51,29 +53,64 @@ public class GridHandler : MonoBehaviour
         {
             //grid.SetValue(UtilsClass.GetMouseWorldPosition(), true);
             Vector3 position = UtilsClass.GetMouseWorldPosition();
-            HeatMapGridObject heatMapGridObject = grid.GetValue(position);
-            if (heatMapGridObject != null)
-                heatMapGridObject.AddValue(5);
-            pathfinding.GetGrid().GetXY(position, out int x, out int y);
-            List<PathNode> path = pathfinding.FindPath(0, 0, x, y);
+            //HeatMapGridObject heatMapGridObject = grid.GetValue(position);
+            //if (heatMapGridObject != null)
+            //    heatMapGridObject.AddValue(5);
             //Debug.Log(path.Count);
-            if (path != null)
-            {
-                for (int i = 0; i < path.Count - 1; ++i)
-                {
-                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x, path[i + 1].y) * 10f + Vector3.one * 5f, Color.yellow, 5f, false);
-                    Debug.Log("x1 = " + path[i].x + " y1 = " + path[i].y + " x2 = " + path[i + 1].x + " y2 = " + path[i + 1].y);
-                }
-                //grid.SetValue(position, true);
-            }
+            //if (path != null)
+            //{
+
+            //    //grid.SetValue(position, true);
+            //}
             //tilemap.SetTilemapSprite(position, tilemapSprite);
             //if (pathfinding.GetNode(x, y) != null)
             //{
             //    pathfinding.GetNode(x, y).SetIsWalkable(tilemapSprite);
             //}
+            pathfinding.GetGrid().GetXY(position, out int x, out int y);
+            List<PathNode> path = pathfinding.FindPath(0, 0, x, y);
+            if (UnitHandler.Instance.SelectedUnit != null)
+            {
+                var u = UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>();
+                
+                
+                    path = pathfinding.FindPath(u.unitx, u.unity, x, y);
+                    if (path != null)
+                    {
+                        int cost = pathfinding.CalculateDistanceCost(pathfinding.GetGrid().GetValue(u.unitx, u.unity), pathfinding.GetGrid().GetValue(x, y));
+                        if (u.currentstamina > cost)
+                        {
+                            GridHandler.Instance.pathfinding.GetNode(UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().unitx, UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().unity).SetIsOccupied(Faction.None);
+                            
+                            //for (int i = 0; i < path.Count; ++i)
+                            //{
+                            //    UnitHandler.Instance.SelectedUnit.transform.position = new Vector3(path[i].x * 10 + 5, path[i].y * 10 + 5);
+                            //    if (i > 0)
+                            //    {
+                            //        Debug.DrawLine(new Vector3(path[i - 1].x, path[i - 1].y) * 10f + Vector3.one * 5f, new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, Color.yellow, 5f, false);
+                            //        Debug.Log("x1 = " + path[i - 1].x + " y1 = " + path[i - 1].y + " x2 = " + path[i].x + " y2 = " + path[i].y);
+                            //    }
+                            //Переместил все в coroutine, чтобы отрисовывалось постепенно и можно было просмотреть как он собственно идет
+                            StartCoroutine(DelayedMovement(0.25f, position, path));
+                            //}
+                            UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().unitx = x;
+                            UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().unity = y;
+                            GridHandler.Instance.pathfinding.GetNode(x, y).SetIsOccupied(u.Faction);
+                            u.currentstamina -= cost;
+                        } 
+                    }
+            }
             if (GameHandler_Setup.Instance.GameState == GameState.Player1Turn)
             {
                 if (pathfinding.GetNode(x, y).occupied == Faction.Player1)// && GetUnitAtCoordinate(x, y) != null)
+                {
+                    UnitHandler.Instance.SetSelectedUnit(GetUnitAtCoordinate(x, y));
+                    Debug.Log("worked i think " + UnitHandler.Instance.SelectedUnit);
+                }
+            }
+            if (GameHandler_Setup.Instance.GameState == GameState.Player2Turn)
+            {
+                if (pathfinding.GetNode(x, y).occupied == Faction.Player2)// && GetUnitAtCoordinate(x, y) != null)
                 {
                     UnitHandler.Instance.SetSelectedUnit(GetUnitAtCoordinate(x, y));
                     Debug.Log("worked i think " + UnitHandler.Instance.SelectedUnit);
@@ -124,6 +161,24 @@ public class GridHandler : MonoBehaviour
             }
             Debug.Log("Loaded");
         }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //    space = true;
+    }
+    //Так как Update обновляется каждый фрейм, то для задержки чего-то требуется Coroutine что ниже
+    IEnumerator DelayedMovement(float delayTime, Vector3 position, List<PathNode> path)
+    {
+        //Wait for the specified delay time before continuing.
+        for (int i = 0; i < path.Count; ++i)
+        {
+            UnitHandler.Instance.SelectedUnit.transform.position = new Vector3(path[i].x * 10 + 5, path[i].y * 10 + 5);
+            if (i > 0)
+            {
+                Debug.DrawLine(new Vector3(path[i - 1].x, path[i - 1].y) * 10f + Vector3.one * 5f, new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, Color.yellow, 5f, false);
+                Debug.Log("x1 = " + path[i - 1].x + " y1 = " + path[i - 1].y + " x2 = " + path[i].x + " y2 = " + path[i].y);
+            }
+            yield return new WaitForSeconds(delayTime);
+        }
+        //Do the action after the delay time has finished.
     }
     public GameObject GetUnitAtCoordinate(int x, int y)
     {

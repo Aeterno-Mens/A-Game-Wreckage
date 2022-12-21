@@ -10,6 +10,7 @@ public class Unit1 : BasePlayer
         this.hp = 250;
         this.stamina = 75;
         this.attack = 80;
+        this.currentstamina = stamina;
     }
 
     // Update is called once per frame

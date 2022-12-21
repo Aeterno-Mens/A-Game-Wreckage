@@ -71,13 +71,13 @@ public class GameHandler_Setup : MonoBehaviour {
         {
             if (playerTurn == Faction.Player1)
             {
-                playerTurn = Faction.Player2;
-                GameHandler_Setup.Instance.ChangeState(GameState.Player2Turn);   
+                //playerTurn = Faction.Player2;
+                ChangeState(GameState.Player2Turn);   
             }
             else if (playerTurn == Faction.Player2)
             {
-                playerTurn = Faction.Player1;
-                GameHandler_Setup.Instance.ChangeState(GameState.Player1Turn);
+                //playerTurn = Faction.Player1;
+                ChangeState(GameState.Player1Turn);
             }
         }
     }
@@ -101,6 +101,22 @@ public class GameHandler_Setup : MonoBehaviour {
         SceneManager.LoadScene(0);
     }
 
+    public void NewTurn(bool a, bool b)
+    {
+        GridHandler.Instance.base1.UI.SetActive(false);
+        GridHandler.Instance.base2.UI.SetActive(false);
+        GridHandler.Instance.base1.GetComponent<SpriteRenderer>().color = GridHandler.Instance.base1.startcolor;
+        GridHandler.Instance.base2.GetComponent<SpriteRenderer>().color = GridHandler.Instance.base2.startcolor;
+        GridHandler.Instance.base1.check = a;
+        GridHandler.Instance.base2.check = b;
+        UnitHandler.Instance.SelectedUnit = null;
+        foreach (GameObject g in UnitHandler.Instance.spawnedUnits)
+        {
+            g.GetComponent<BaseUnit>().currentstamina = g.GetComponent<BaseUnit>().stamina;
+            g.GetComponent<BaseUnit>().attacked = false;
+        }
+    }
+
     public void ChangeState(GameState newState)
     {
         GameState = newState;
@@ -117,9 +133,11 @@ public class GameHandler_Setup : MonoBehaviour {
                 break;
             case GameState.Player1Turn:
                 playerTurn = Faction.Player1;
+                NewTurn(true, false);
                 break;
             case GameState.Player2Turn:
                 playerTurn = Faction.Player2;
+                NewTurn(false, true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);

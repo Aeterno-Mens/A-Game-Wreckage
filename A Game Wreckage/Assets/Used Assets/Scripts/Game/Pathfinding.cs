@@ -68,7 +68,7 @@ public class Pathfinding
                 {
                     continue;
                 }
-                if (neighbourNode.type != 1)
+                if (neighbourNode.type != 1)    
                 {
                     continue;
                 }
@@ -136,7 +136,7 @@ public class Pathfinding
         //Debug.Log(path);
         return path;
     }
-    private int CalculateDistanceCost(PathNode a, PathNode b) {
+    public int CalculateDistanceCost(PathNode a, PathNode b) {
         int xDistance = Mathf.Abs(a.x - b.x);
         int yDistance = Mathf.Abs(a.y - b.y);
         int remaining = Mathf.Abs(xDistance - yDistance);

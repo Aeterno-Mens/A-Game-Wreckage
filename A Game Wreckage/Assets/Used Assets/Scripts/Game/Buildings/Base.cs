@@ -7,8 +7,7 @@ using CodeMonkey.Utils;
 public class Base : MonoBehaviour
 {
     public static Base Instance;
-    public bool check = true;
-    private bool space = false;
+    public bool check;
     public void OccupieNode()
     {
         GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).SetIsOccupied(this.Faction);
@@ -21,7 +20,7 @@ public class Base : MonoBehaviour
     }
 
     public GameObject UI;
-    private Color startcolor;
+    public Color startcolor;
     public Faction Faction;
     
     //public 
@@ -38,8 +37,6 @@ public class Base : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            space = true;
         if (check)
         {
             Vector3 bar = transform.position;
@@ -63,19 +60,6 @@ public class Base : MonoBehaviour
     void OnMouseExit()
     {
         GetComponent<SpriteRenderer>().color = startcolor;
-    }
-    private void FixedUpdate()
-    {
-        if (space)
-        {
-            UI.SetActive(false);
-            GetComponent<SpriteRenderer>().color = startcolor;
-            if (GameHandler_Setup.Instance.playerTurn != this.Faction)
-            {
-                check = false;
-            }
-            space = false;
-        }
     }
 }
 public enum Faction
