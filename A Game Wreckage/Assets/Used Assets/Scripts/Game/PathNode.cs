@@ -13,7 +13,7 @@ public class PathNode
     public int fCost;
     //1 - трава, 2 - вода, 3 - гора
     public int type;
-    public bool occupied;
+    public Faction occupied;
 
     public PathNode CameFromNode;
     public PathNode(Grid<PathNode> grid, int x, int y)
@@ -22,7 +22,7 @@ public class PathNode
         this.x = x;
         this.y = y;
         type = 1;
-        occupied = false;
+        occupied = Faction.None;
     }
 
     public void CalculateFCost()
@@ -41,7 +41,7 @@ public class PathNode
         grid.TriggeredGridObjectChanged(x, y);
     }
 
-    public void SetIsOccupied(bool occupation)
+    public void SetIsOccupied(Faction occupation)
     {
         this.occupied = occupation;
     }

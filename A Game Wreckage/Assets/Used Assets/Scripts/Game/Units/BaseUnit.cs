@@ -5,15 +5,18 @@ using UnityEngine.EventSystems;
 using CodeMonkey.Utils;
 public class BaseUnit : MonoBehaviour
 {
-    public string UnitName;
-    public int x;
-    public int y;
+    //координаты с которыми мы будем работать
+    public int unitx;
+    public int unity;
+    //статы юнита
     public int stamina;
     public int range;
     public int hp;
     public int attack;
     public Faction Faction;
+    //различные булевые переменные для контроля
     public bool moving = false;
+    public bool attacked = false;
 
     public bool IsMouseOverUI()
     {
@@ -33,13 +36,13 @@ public class BaseUnit : MonoBehaviour
             //grid.SetValue(UtilsClass.GetMouseWorldPosition(), true);
             Vector3 position = UtilsClass.GetMouseWorldPosition();
             GridHandler.Instance.pathfinding.GetGrid().GetXY(position, out int x, out int y);
-            List<PathNode> path = GridHandler.Instance.pathfinding.FindPath(this.x, this.y, x, y);
+            List<PathNode> path = GridHandler.Instance.pathfinding.FindPath(this.unitx, this.unity, x, y);
             if (path != null)
             {
                 for (int i = 0; i < path.Count; ++i)
                 {
-                    this.x = path[i].x;
-                    this.y = path[i].y;
+                    this.unitx = path[i].x;
+                    this.unity = path[i].y;
                     DoDelayAction(1.0f);
                 }
             }

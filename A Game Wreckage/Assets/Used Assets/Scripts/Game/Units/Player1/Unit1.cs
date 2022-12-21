@@ -5,7 +5,7 @@ using UnityEngine;
 public class Unit1 : BasePlayer
 {
     // Start is called before the first frame update
-    void Start()
+    void Start()    
     {
         this.hp = 250;
         this.stamina = 75;

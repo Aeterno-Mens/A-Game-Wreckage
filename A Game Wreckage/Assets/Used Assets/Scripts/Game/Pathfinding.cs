@@ -68,11 +68,11 @@ public class Pathfinding
                 {
                     continue;
                 }
-                if (neighbourNode.type!=1)
+                if (neighbourNode.type != 1)
                 {
                     continue;
                 }
-                if (neighbourNode.occupied == true)
+                if (neighbourNode.occupied != Faction.None)
                 {
                     continue;
                 }

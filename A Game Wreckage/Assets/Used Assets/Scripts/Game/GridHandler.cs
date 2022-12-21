@@ -32,7 +32,7 @@ public class GridHandler : MonoBehaviour
     public void GenerateGrid()
     {
         map = GH.GetComponent<GameHandler_Setup>().map;
-        grid = new Grid<HeatMapGridObject>(2, 4, 10f, new Vector3(-30,0), (Grid<HeatMapGridObject> g, int x, int y) => new HeatMapGridObject(g, x, y));
+        grid = new Grid<HeatMapGridObject>(2, 4, 10f, new Vector3(-30, 0), (Grid<HeatMapGridObject> g, int x, int y) => new HeatMapGridObject(g, x, y));
         //heatMapVisual.SetGrid(grid);
         pathfinding = new Pathfinding(25, 25, Vector3.zero);
         heatMapGenericVisual.SetGrid(grid);
@@ -61,26 +61,35 @@ public class GridHandler : MonoBehaviour
             {
                 for (int i = 0; i < path.Count - 1; ++i)
                 {
-                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x , path[i + 1].y) * 10f + Vector3.one * 5f, Color.yellow, 5f, false);
+                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x, path[i + 1].y) * 10f + Vector3.one * 5f, Color.yellow, 5f, false);
                     Debug.Log("x1 = " + path[i].x + " y1 = " + path[i].y + " x2 = " + path[i + 1].x + " y2 = " + path[i + 1].y);
                 }
                 //grid.SetValue(position, true);
             }
-            tilemap.SetTilemapSprite(position, tilemapSprite);
-            if (pathfinding.GetNode(x, y) != null)
+            //tilemap.SetTilemapSprite(position, tilemapSprite);
+            //if (pathfinding.GetNode(x, y) != null)
+            //{
+            //    pathfinding.GetNode(x, y).SetIsWalkable(tilemapSprite);
+            //}
+            if (GameHandler_Setup.Instance.GameState == GameState.Player1Turn)
             {
-                pathfinding.GetNode(x, y).SetIsWalkable(tilemapSprite);
+                if (pathfinding.GetNode(x, y).occupied == Faction.Player1)// && GetUnitAtCoordinate(x, y) != null)
+                {
+                    UnitHandler.Instance.SetSelectedUnit(GetUnitAtCoordinate(x, y));
+                    Debug.Log("worked i think " + UnitHandler.Instance.SelectedUnit);
+                }
             }
+
         }
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 position = UtilsClass.GetMouseWorldPosition();
             pathfinding.GetGrid().GetXY(position, out int x, out int y);
-            
-            Debug.Log("position: "+ position + "tile: "+tilemap.GetTilemapSprite(position) + " x:" + x + " y:" + y);
+
+            Debug.Log("position: " + position + "tile: " + tilemap.GetTilemapSprite(position) + " x:" + x + " y:" + y);
             if (pathfinding.GetNode(x, y) != null)
             {
-                Debug.Log("type: " + pathfinding.GetNode(x, y).type + " occupation = "+ pathfinding.GetNode(x, y).occupied);
+                Debug.Log("type: " + pathfinding.GetNode(x, y).type + " occupation = " + pathfinding.GetNode(x, y).occupied);
                 //pathfinding.GetNode(x, y).SetIsWalkable(Tilemap.TilemapObject.TilemapSprite.Water);
             }
         }
@@ -102,19 +111,31 @@ public class GridHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            tilemap.Load("save_"+map);
-                for(int i = 0; i < pathfinding.GetGrid().GetWidth(); i++)
+            tilemap.Load("save_" + map);
+            for (int i = 0; i < pathfinding.GetGrid().GetWidth(); i++)
             {
-                for(int j = 0; j < pathfinding.GetGrid().GetHeight(); ++j)
+                for (int j = 0; j < pathfinding.GetGrid().GetHeight(); ++j)
                 {
 
-                    Vector3 a = new Vector3(i*10+0.1f, j*10+0.1f, 0);
-                    Debug.Log("x:"+(i * 10 + 0.1f) +" y:"+(j * 10 + 0.1f) +" = "+tilemap.GetTilemapSprite(a));
+                    Vector3 a = new Vector3(i * 10 + 0.1f, j * 10 + 0.1f, 0);
+                    Debug.Log("x:" + (i * 10 + 0.1f) + " y:" + (j * 10 + 0.1f) + " = " + tilemap.GetTilemapSprite(a));
                     pathfinding.GetNode(i, j).SetIsWalkable(tilemap.GetTilemapSprite(a));
                 }
             }
             Debug.Log("Loaded");
         }
+    }
+    public GameObject GetUnitAtCoordinate(int x, int y)
+    {
+        foreach (GameObject g in UnitHandler.Instance.spawnedUnits)
+        {
+            if (g.GetComponent<BaseUnit>().unitx == x && g.GetComponent<BaseUnit>().unity == y)
+            {
+                return g; // match found
+            }
+            
+        }
+        return null; // no match found
     }
 }
 public class HeatMapGridObject{

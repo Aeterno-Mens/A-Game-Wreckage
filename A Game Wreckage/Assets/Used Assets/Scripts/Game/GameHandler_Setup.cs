@@ -32,7 +32,7 @@ public class GameHandler_Setup : MonoBehaviour {
     }
     public void Create(GameObject prefab)
     {
-        GameHandler_Setup.Instance.unit = prefab;
+        unit = prefab;
         if (GameHandler_Setup.Instance.GameState == GameState.Player1Turn)
             GameHandler_Setup.Instance.ChangeState(GameState.SpawnPlayer1);
         else if (GameHandler_Setup.Instance.GameState == GameState.Player2Turn)
