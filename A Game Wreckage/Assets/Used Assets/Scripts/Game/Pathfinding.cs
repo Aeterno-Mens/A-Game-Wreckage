@@ -11,7 +11,7 @@ public class Pathfinding
     private Grid<PathNode> grid;
     private HashSet<PathNode> closedList;
     private List<PathNode> openList;
-   public Pathfinding(int width, int height, Vector3 originPosition)
+    public Pathfinding(int width, int height, Vector3 originPosition)
     {
         Instance = this;
         grid = new Grid<PathNode>(width, height, 10f, originPosition, (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y)); 
@@ -22,7 +22,7 @@ public class Pathfinding
         return grid;
     }
 
-    public List<PathNode> FindPath(int startX,int startY, int endX, int endY)
+    public List<PathNode> FindPath(int startX, int startY, int endX, int endY)
     {
         PathNode startNode = grid.GetValue(startX, startY);
         PathNode endNode = grid.GetValue(endX, endY);
@@ -50,7 +50,7 @@ public class Pathfinding
         startNode.hCost = CalculateDistanceCost(startNode, endNode);
         startNode.CalculateFCost();
 
-        //пробегаемся по гриду в поисках оптимального пути пока не дойдем
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         while (openList.Count > 0)
         {
             PathNode currentNode = GetLowestFCost(openList);
@@ -92,11 +92,11 @@ public class Pathfinding
         List<PathNode> neighbourList = new List<PathNode>();
         if (currentNode.x - 1 >= 0)
         {
-            //лево
+            //пїЅпїЅпїЅпїЅ
             neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y));
-            //слева снизу
+            //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y - 1));
-            //слева сверху  
+            //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ  
             if (currentNode.y + 1 < grid.GetHeight()) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
         }
         if (currentNode.x + 1 < grid.GetWidth())
@@ -106,9 +106,9 @@ public class Pathfinding
 
             if (currentNode.y + 1 < grid.GetHeight()) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
         }
-        //снизу
+        //пїЅпїЅпїЅпїЅпїЅ
         if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x, currentNode.y - 1));
-        //сверху
+        //пїЅпїЅпїЅпїЅпїЅпїЅ
         if (currentNode.y + 1 < grid.GetHeight()) neighbourList.Add(GetNode(currentNode.x, currentNode.y + 1));
         return neighbourList;
     }
