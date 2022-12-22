@@ -1,6 +1,7 @@
-{ "pid": 35942, "tid": -1, "ph": "M", "name": "process_name", "args": { "name": "netcorerun.dll" } },
+﻿{ "pid": 35942, "tid": -1, "ph": "M", "name": "process_name", "args": { "name": "netcorerun.dll" } },
 { "pid": 35942, "tid": -1, "ph": "M", "name": "process_sort_index", "args": { "sort_index": "-1" } },
 { "pid": 35942, "tid": 1, "ph": "M", "name": "thread_name", "args": { "name": "" } },
+<<<<<<< Updated upstream
 { "pid": 35942, "tid": 1, "ts": 1671645631717384, "dur": 916242, "ph": "X", "name": "BuildProgram", "args": {} },
 { "pid": 35942, "tid": 1, "ts": 1671645631718709, "dur": 115194, "ph": "X", "name": "BuildProgramContextConstructor", "args": {} },
 { "pid": 35942, "tid": 1, "ts": 1671645632467857, "dur": 10255, "ph": "X", "name": "OutputData.Write", "args": {} },
@@ -8,3 +9,22 @@
 { "pid": 35942, "tid": 1, "ts": 1671645632479160, "dur": 93684, "ph": "X", "name": "JsonToString", "args": {} },
 { "pid": 35942, "tid": 1, "ts": 1671645632640168, "dur": 1763, "ph": "X", "name": "", "args": {} },
 { "pid": 35942, "tid": 1, "ts": 1671645632639026, "dur": 2960, "ph": "X", "name": "Write chrome-trace events", "args": {} },
+=======
+<<<<<<< Updated upstream
+{ "pid": 35942, "tid": 1, "ts": 1668967846011503, "dur": 886165, "ph": "X", "name": "BuildProgram", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1668967846012969, "dur": 271477, "ph": "X", "name": "BuildProgramContextConstructor", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1668967846797811, "dur": 5362, "ph": "X", "name": "OutputData.Write", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1668967846803176, "dur": 94472, "ph": "X", "name": "Backend.Write", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1668967846803662, "dur": 66595, "ph": "X", "name": "JsonToString", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1668967846901777, "dur": 913, "ph": "X", "name": "", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1668967846900928, "dur": 1779, "ph": "X", "name": "Write chrome-trace events", "args": {} },
+=======
+{ "pid": 35942, "tid": 1, "ts": 1671664005213144, "dur": 527372, "ph": "X", "name": "BuildProgram", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1671664005213954, "dur": 80774, "ph": "X", "name": "BuildProgramContextConstructor", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1671664005640809, "dur": 2583, "ph": "X", "name": "OutputData.Write", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1671664005643395, "dur": 97106, "ph": "X", "name": "Backend.Write", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1671664005643903, "dur": 60487, "ph": "X", "name": "JsonToString", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1671664005744655, "dur": 941, "ph": "X", "name": "", "args": {} },
+{ "pid": 35942, "tid": 1, "ts": 1671664005743811, "dur": 1805, "ph": "X", "name": "Write chrome-trace events", "args": {} },
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes

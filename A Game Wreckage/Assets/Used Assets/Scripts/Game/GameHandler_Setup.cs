@@ -12,6 +12,13 @@ public class GameHandler_Setup : MonoBehaviour {
 
     [SerializeField] private CameraFollow cameraFollow;
     [SerializeField] private GameObject PauseMenu;
+<<<<<<< Updated upstream
+=======
+    [SerializeField] public Influence_point Ipoint1;
+    [SerializeField] public Influence_point Ipoint2;
+    [SerializeField] public Influence_point Ipoint3;
+    private List<GameObject> Ipoints = new List<GameObject>() { Ipoint1, Ipoint2, Ipoint3 }
+>>>>>>> Stashed changes
     private Vector3 cameraPosition = new Vector3(97,60);
     private float orthoSize = 60f;
     public static GameHandler_Setup Instance;
@@ -103,6 +110,11 @@ public class GameHandler_Setup : MonoBehaviour {
 
     public void NewTurn(bool a, bool b)
     {
+<<<<<<< Updated upstream
+=======
+        int a1 = 0;
+        int a2 = 0;
+>>>>>>> Stashed changes
         GridHandler.Instance.base1.UI.SetActive(false);
         GridHandler.Instance.base2.UI.SetActive(false);
         GridHandler.Instance.base1.GetComponent<SpriteRenderer>().color = GridHandler.Instance.base1.startcolor;
@@ -115,6 +127,18 @@ public class GameHandler_Setup : MonoBehaviour {
             g.GetComponent<BaseUnit>().currentstamina = g.GetComponent<BaseUnit>().stamina;
             g.GetComponent<BaseUnit>().attacked = false;
         }
+<<<<<<< Updated upstream
+=======
+        foreach (GameObject g in Ipoints)
+        {
+            g.AtEndTurn()
+            if (g.Owner == Faction.Player1)
+                a1++;
+            if (g.Owner == Faction.Player2)
+                a2++;
+        }
+
+>>>>>>> Stashed changes
     }
 
     public void ChangeState(GameState newState)
