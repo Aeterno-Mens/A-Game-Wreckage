@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sniper1 : BasePlayer
+public class Mecha1 : BasePlayer
 {
     // Start is called before the first frame update
-    void Start()
+    void Start()    
     {
-        this.hp = 250;
-        this.stamina = 75;
-        this.attack = 80;
+        this.hp = 650;
+        this.stamina = 335;
+        this.attack = 410;
         this.currentstamina = stamina;
+        this.atribute = 3;
+        this.range = 10.0f;//3.0f;
     }
 
     // Update is called once per frame

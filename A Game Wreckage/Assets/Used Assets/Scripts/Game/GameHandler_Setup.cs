@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using CodeMonkey;
 using CodeMonkey.Utils;
 using CodeMonkey.MonoBehaviours;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 
 public class GameHandler_Setup : MonoBehaviour {
@@ -25,6 +27,7 @@ public class GameHandler_Setup : MonoBehaviour {
     public GameObject unit;
     private bool space = true;
     public bool action = false;
+    public TextMeshProUGUI Turn;
     [SerializeField] public Faction playerTurn;
     void Awake()
     {
@@ -76,19 +79,9 @@ public class GameHandler_Setup : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Escape))
             PauseMenu.SetActive(!PauseMenu.activeSelf);
-        if (Input.GetKeyDown(KeyCode.Space) && !action)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            space = true;
-            if (playerTurn == Faction.Player1)
-            {
-                //playerTurn = Faction.Player2;
-                ChangeState(GameState.Player2Turn);   
-            }
-            else if (playerTurn == Faction.Player2)
-            {
-                //playerTurn = Faction.Player1;
-                ChangeState(GameState.Player1Turn);
-            }
+            EndTurn();
         }
     }
 
@@ -111,6 +104,23 @@ public class GameHandler_Setup : MonoBehaviour {
         SceneManager.LoadScene(0);
     }
 
+    public void EndTurn()
+    {
+        if (!action)
+        {
+            space = true;
+            if (playerTurn == Faction.Player1)
+            {
+                //playerTurn = Faction.Player2;
+                ChangeState(GameState.Player2Turn);
+            }
+            else if (playerTurn == Faction.Player2)
+            {
+                //playerTurn = Faction.Player1;
+                ChangeState(GameState.Player1Turn);
+            }
+        }
+    }
     public void NewTurn(bool a, bool b)
     {
         int a1 = 0;
@@ -157,6 +167,7 @@ public class GameHandler_Setup : MonoBehaviour {
                 {
                     NewTurn(true, false);
                     playerTurn = Faction.Player1;
+                    Turn.text = "Ход Игрока1";
                 }
                 space = false;
                 break;
@@ -165,6 +176,7 @@ public class GameHandler_Setup : MonoBehaviour {
                 {
                     NewTurn(false, true);
                     playerTurn = Faction.Player2;
+                    Turn.text = "Ход Игрока2";
                 }
                 space = false;
                 break;

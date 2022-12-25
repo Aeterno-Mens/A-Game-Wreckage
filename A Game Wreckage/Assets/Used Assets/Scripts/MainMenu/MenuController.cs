@@ -35,6 +35,9 @@ public class MenuController : MonoBehaviour
     [Header("Loading Screen")]
     [SerializeField] private GameObject LoadingScreen;
     [SerializeField] private Slider LoadingBarFill;
+    [Header("Wreck-Pedia")]
+    [SerializeField] private GameObject UnitSprite;
+    [SerializeField] private TextMeshProUGUI UnitName;
     private void Start()
     {
         if (File.Exists(Application.dataPath + "/settings.json"))
@@ -136,6 +139,17 @@ public class MenuController : MonoBehaviour
         confirmationPrompt.SetActive(true);
         yield return new WaitForSeconds(2);
         confirmationPrompt.SetActive(false);
+    }
+
+    public void GetUnitName(string UN)
+    {
+        
+        UnitName.text = UN;
+    }
+
+    public void GetUnitSprite(Sprite US)
+    {
+        UnitSprite.GetComponent<Image>().sprite = US;
     }
 
     public void Game_Start()
