@@ -124,4 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f499ba1abd5bf7840aa6a9f04cdf528a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  check: 0
+  hp: 10
+  UI: {fileID: 0}
+  startcolor: {r: 0, g: 0, b: 0, a: 0}
   Faction: 0

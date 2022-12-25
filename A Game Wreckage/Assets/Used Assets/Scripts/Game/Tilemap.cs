@@ -23,8 +23,12 @@ public class Tilemap
 
     public TilemapObject.TilemapSprite GetTilemapSprite(Vector3 position)
     {
-        TilemapObject a = grid.GetValue(position);
-        return a.GetTilemapSprite();
+        TilemapObject tilemapObject = grid.GetValue(position);
+        if (tilemapObject != null)
+        {
+            return tilemapObject.GetTilemapSprite();
+        }
+        return default;
     }
 
     public void SetTilemapVisual(TilemapGenericVisual tilemapVisual)

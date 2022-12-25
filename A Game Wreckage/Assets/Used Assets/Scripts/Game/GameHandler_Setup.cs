@@ -18,6 +18,8 @@ public class GameHandler_Setup : MonoBehaviour {
     public GameState GameState;
     public int map = 0;
     public bool bot = false;
+    public GameObject unit;
+    [SerializeField] public Faction playerTurn;
     void Awake()
     {
         bot = DataHolder.bot;
@@ -28,7 +30,15 @@ public class GameHandler_Setup : MonoBehaviour {
         cameraFollow.Setup(() => cameraPosition, () => orthoSize, true, true);
         ChangeState(GameState.GenerateGrid);
     }
+    public void Create(GameObject prefab)
+    {
+        unit = prefab;
+        if (GameHandler_Setup.Instance.GameState == GameState.Player1Turn)
+            GameHandler_Setup.Instance.ChangeState(GameState.SpawnPlayer1);
+        else if (GameHandler_Setup.Instance.GameState == GameState.Player2Turn)
+            GameHandler_Setup.Instance.ChangeState(GameState.SpawnPlayer2);
 
+    }
     private void Update() {
         float cameraSpeed = 100f;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
@@ -55,6 +65,21 @@ public class GameHandler_Setup : MonoBehaviour {
             //if(orthoSize<100f)
             orthoSize += 10f;
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseMenu.SetActive(!PauseMenu.activeSelf);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (playerTurn == Faction.Player1)
+            {
+                //playerTurn = Faction.Player2;
+                ChangeState(GameState.Player2Turn);   
+            }
+            else if (playerTurn == Faction.Player2)
+            {
+                //playerTurn = Faction.Player1;
+                ChangeState(GameState.Player1Turn);
+            }
+        }
     }
 
     public void Pause()
@@ -76,6 +101,24 @@ public class GameHandler_Setup : MonoBehaviour {
         SceneManager.LoadScene(0);
     }
 
+    public void NewTurn(bool a, bool b)
+    {
+        GridHandler.Instance.base1.UI.SetActive(false);
+        GridHandler.Instance.base2.UI.SetActive(false);
+        GridHandler.Instance.base1.GetComponent<SpriteRenderer>().color = GridHandler.Instance.base1.startcolor;
+        GridHandler.Instance.base2.GetComponent<SpriteRenderer>().color = GridHandler.Instance.base2.startcolor;
+        GridHandler.Instance.base1.check = a;
+        GridHandler.Instance.base2.check = b;
+        // TODO: handle cells around bases for different faction units (damage)
+
+        UnitHandler.Instance.SelectedUnit = null;
+        foreach (GameObject g in UnitHandler.Instance.spawnedUnits)
+        {
+            g.GetComponent<BaseUnit>().currentstamina = g.GetComponent<BaseUnit>().stamina;
+            g.GetComponent<BaseUnit>().attacked = false;
+        }
+    }
+
     public void ChangeState(GameState newState)
     {
         GameState = newState;
@@ -85,21 +128,35 @@ public class GameHandler_Setup : MonoBehaviour {
                 GridHandler.Instance.GenerateGrid();
                 break;
             case GameState.SpawnPlayer1:
-                UnitManager.Instance.SpawnPlayer1();
+                UnitHandler.Instance.SpawnPlayer1();
                 break;
             case GameState.SpawnPlayer2:
-                UnitManager.Instance.SpawnPlayer2();
+                UnitHandler.Instance.SpawnPlayer2();
                 break;
             case GameState.Player1Turn:
+                playerTurn = Faction.Player1;
+                NewTurn(true, false);
                 break;
             case GameState.Player2Turn:
+                playerTurn = Faction.Player2;
+                NewTurn(false, true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
     }
-}
 
+    public static string GetGameObjectPath(GameObject obj)
+    {
+        string path = "/" + obj.name;
+        while (obj.transform.parent != null)
+        {
+            obj = obj.transform.parent.gameObject;
+            path = "/" + obj.name + path;
+        }
+        return path;
+    }
+}
 public enum GameState
 {
     GenerateGrid = 0,

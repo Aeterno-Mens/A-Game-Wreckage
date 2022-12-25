@@ -13,7 +13,7 @@ public class HeatMapGenericVisual : MonoBehaviour
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
     }
-    
+    //закидываем наш грид для отображения
     public void SetGrid(Grid<HeatMapGridObject> grid)
     {
         this.grid = grid;
@@ -21,12 +21,12 @@ public class HeatMapGenericVisual : MonoBehaviour
 
         grid.OnGridValueChanged += Grid_OnGridValueChanged;
     }
-    
+    //чекаем изменения в гриде
     public void Grid_OnGridValueChanged(object sender, Grid<HeatMapGridObject>.OnGridValueChangedEventArgs e)
     {
         updateMesh = true;
     }
-    
+    //отображаем изменения
     private void LateUpdate()
     {
         if (updateMesh)
@@ -35,6 +35,8 @@ public class HeatMapGenericVisual : MonoBehaviour
             UpdateHeatMapVisual(); 
         }
     }
+    /*а тут уже взаимодействие с мешами и передача всех параметров, ну и с координатами приколы, 
+     чтобы грид не был на 20 от ориджина по X, а меш остался в ориджине*/
     private void UpdateHeatMapVisual() {
         MeshUtils.CreateEmptyMeshArrays(grid.GetWidth() * grid.GetHeight(), out Vector3[] vertices, out Vector2[] uv, out int[] triangles);
          for (int x=0; x<grid.GetWidth(); ++x)

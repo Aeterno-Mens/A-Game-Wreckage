@@ -6,14 +6,17 @@ using System;
 
 public class Grid<TGridObject>
 {
-    
+    //Для обновления данных
     public event EventHandler<OnGridValueChangedEventArgs> OnGridValueChanged;
     public class OnGridValueChangedEventArgs: EventArgs
     {
         public int x;
         public int y;
     }
-    
+    /*Ширина, высота - размер массива
+     *Размер клеток
+     *отклонение от стартовых координат
+     *ну и сам массив*/
     private int width;
     private int height;
     private float cellSize;
@@ -35,8 +38,8 @@ public class Grid<TGridObject>
                 gridArray[x, y] = createGridObject(this, x, y);
             }
         }
-        
-        bool showDebug = true;
+                //это для наглядного отображения грида для дебага, ну и работы с ним
+                bool showDebug = true;
         if (showDebug)
         {
             TextMesh[,] debugTextArray = new TextMesh[width, height];
@@ -56,7 +59,7 @@ public class Grid<TGridObject>
             debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y]?.ToString();
         }
     }
-    
+    //эти 3 гета пояснять я не буду
     public int GetWidth()
     {
         return width;
@@ -71,24 +74,24 @@ public class Grid<TGridObject>
     {
         return cellSize;
     }
-    
+    //получаем координаты определенного кубика грида уже у нас в окне
     public Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x, y) * cellSize + originPosition;
     }
-    
+    //преобразует Vector3 в 2 инта с которыми уже можно работать
     public void GetXY(Vector3 worldPosition, out int x, out int y)
     {
         x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
         y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
     }
-    
+    //изменяем значение по координатам
     public void SetValue(int x, int y, TGridObject value)
     {
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
             gridArray[x, y] = value;
-            if (OnGridValueChanged != null) OnGridValueChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ debugTextArray[x, y].text = gridArray[x, y].ToString();
+            if (OnGridValueChanged != null) OnGridValueChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });//раньше дебаг был полем класса, теперь он понижен debugTextArray[x, y].text = gridArray[x, y].ToString();
         }
     }
 
@@ -96,14 +99,14 @@ public class Grid<TGridObject>
     {
         if(OnGridValueChanged != null) OnGridValueChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });
     }
-    
+    //изменяем значение по позиции
     public void SetValue(Vector3 worldPosition, TGridObject value)
     {
         int x, y;
         GetXY(worldPosition, out x, out y);
         SetValue(x, y, value);
     }
-    
+    //аналогично с получением
     public TGridObject GetValue(int x, int y)
     {
         if (x >= 0 && y >= 0 && x < width && y < height)
