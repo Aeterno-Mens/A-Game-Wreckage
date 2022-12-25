@@ -8,7 +8,8 @@ public class Influence_point : MonoBehaviour
     public bool check;
     public int cp;
     public GameObject UI;
-    public Owner Faction;
+    public Color startcolor;
+    public Faction Faction;
     // Start is called before the first frame update
 
     private void Awake()
@@ -29,23 +30,25 @@ public class Influence_point : MonoBehaviour
     {
         if (GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).occupied != Faction.None)
         {
-            if (((GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).occupied == Faction.Player1) && this.cp < 4){
+            if ((GameHandler_Setup.Instance.GameState == GameState.Player2Turn && GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).occupied == Faction.Player1) && this.cp < 4){
                 this.cp++;
             }
 
-            if (((GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).occupied == Faction.Player2) && this.cp > 0){
+            if ((GameHandler_Setup.Instance.GameState == GameState.Player1Turn && GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).occupied == Faction.Player2) && this.cp > 0){
                 this.cp--;
             }
         }
-
-        if (this.cp == 0)
+        if(this.cp == 2)
         {
-            Owner = Faction.Player1;
+            Faction = Faction.None;
         }
-
-        if (this.cp == 4)
+        else if (this.cp == 0)
         {
-            Owner = Faction.Player2;
+            Faction = Faction.Player1;
+        }
+        else if (this.cp == 4)
+        {
+            Faction = Faction.Player2;
         }
     }
 

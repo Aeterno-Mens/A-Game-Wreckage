@@ -12,13 +12,10 @@ public class GameHandler_Setup : MonoBehaviour {
 
     [SerializeField] private CameraFollow cameraFollow;
     [SerializeField] private GameObject PauseMenu;
-<<<<<<< Updated upstream
-=======
-    [SerializeField] public Influence_point Ipoint1;
-    [SerializeField] public Influence_point Ipoint2;
-    [SerializeField] public Influence_point Ipoint3;
-    private List<GameObject> Ipoints = new List<GameObject>() { Ipoint1, Ipoint2, Ipoint3 }
->>>>>>> Stashed changes
+    [SerializeField] public GameObject Ipoint1;
+    [SerializeField] public GameObject Ipoint2;
+    [SerializeField] public GameObject Ipoint3;
+    private List<GameObject> Ipoints = new List<GameObject>();
     private Vector3 cameraPosition = new Vector3(97,60);
     private float orthoSize = 60f;
     public static GameHandler_Setup Instance;
@@ -26,12 +23,17 @@ public class GameHandler_Setup : MonoBehaviour {
     public int map = 0;
     public bool bot = false;
     public GameObject unit;
+    private bool space = true;
+    public bool action = false;
     [SerializeField] public Faction playerTurn;
     void Awake()
     {
         bot = DataHolder.bot;
         map = DataHolder.map;
         Instance = this;
+        Ipoints.Add(Ipoint1);
+        Ipoints.Add(Ipoint2);
+        Ipoints.Add(Ipoint3);
     }
     private void Start() {
         cameraFollow.Setup(() => cameraPosition, () => orthoSize, true, true);
@@ -40,10 +42,10 @@ public class GameHandler_Setup : MonoBehaviour {
     public void Create(GameObject prefab)
     {
         unit = prefab;
-        if (GameHandler_Setup.Instance.GameState == GameState.Player1Turn)
-            GameHandler_Setup.Instance.ChangeState(GameState.SpawnPlayer1);
-        else if (GameHandler_Setup.Instance.GameState == GameState.Player2Turn)
-            GameHandler_Setup.Instance.ChangeState(GameState.SpawnPlayer2);
+        if (GameState == GameState.Player1Turn)
+            ChangeState(GameState.SpawnPlayer1);
+        else if (GameState == GameState.Player2Turn)
+            ChangeState(GameState.SpawnPlayer2);
 
     }
     private void Update() {
@@ -74,8 +76,9 @@ public class GameHandler_Setup : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Escape))
             PauseMenu.SetActive(!PauseMenu.activeSelf);
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !action)
         {
+            space = true;
             if (playerTurn == Faction.Player1)
             {
                 //playerTurn = Faction.Player2;
@@ -110,11 +113,8 @@ public class GameHandler_Setup : MonoBehaviour {
 
     public void NewTurn(bool a, bool b)
     {
-<<<<<<< Updated upstream
-=======
         int a1 = 0;
         int a2 = 0;
->>>>>>> Stashed changes
         GridHandler.Instance.base1.UI.SetActive(false);
         GridHandler.Instance.base2.UI.SetActive(false);
         GridHandler.Instance.base1.GetComponent<SpriteRenderer>().color = GridHandler.Instance.base1.startcolor;
@@ -127,18 +127,15 @@ public class GameHandler_Setup : MonoBehaviour {
             g.GetComponent<BaseUnit>().currentstamina = g.GetComponent<BaseUnit>().stamina;
             g.GetComponent<BaseUnit>().attacked = false;
         }
-<<<<<<< Updated upstream
-=======
         foreach (GameObject g in Ipoints)
         {
-            g.AtEndTurn()
-            if (g.Owner == Faction.Player1)
+            g.GetComponent<Influence_point>().AtEndTurn();
+            if (g.GetComponent<Influence_point>().Faction == Faction.Player1)
                 a1++;
-            if (g.Owner == Faction.Player2)
+            if (g.GetComponent<Influence_point>().Faction == Faction.Player2)
                 a2++;
         }
 
->>>>>>> Stashed changes
     }
 
     public void ChangeState(GameState newState)
@@ -156,12 +153,20 @@ public class GameHandler_Setup : MonoBehaviour {
                 UnitHandler.Instance.SpawnPlayer2();
                 break;
             case GameState.Player1Turn:
-                playerTurn = Faction.Player1;
-                NewTurn(true, false);
+                if (space)
+                {
+                    NewTurn(true, false);
+                    playerTurn = Faction.Player1;
+                }
+                space = false;
                 break;
             case GameState.Player2Turn:
-                playerTurn = Faction.Player2;
-                NewTurn(false, true);
+                if (space)
+                {
+                    NewTurn(false, true);
+                    playerTurn = Faction.Player2;
+                }
+                space = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);

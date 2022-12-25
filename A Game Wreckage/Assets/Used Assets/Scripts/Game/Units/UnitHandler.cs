@@ -7,7 +7,7 @@ public class UnitHandler : MonoBehaviour
 {
     public static UnitHandler Instance;
     public List<GameObject> spawnedUnits = new List<GameObject>();
-    private int P1max = 0, P2max = 0;
+    public int P1max = 0, P2max = 0;
     public GameObject SelectedUnit = null;
     int x, y;
     private void Awake()
@@ -21,6 +21,7 @@ public class UnitHandler : MonoBehaviour
             var spawnUnitP1 = Instantiate(GameHandler_Setup.Instance.unit);
             P1max++;
             spawnedUnits.Add(spawnUnitP1);
+            //spawnUnitP1.GetComponent<BaseUnit>().currentstamina = spawnUnitP1.GetComponent<BaseUnit>().stamina;
             spawnUnitP1.transform.position = new Vector3(25, 15.5f);
             GridHandler.Instance.pathfinding.GetGrid().GetXY(new Vector3(25, 15.5f), out x, out y);
             GridHandler.Instance.pathfinding.GetNode(x, y).SetIsOccupied(Faction.Player1);

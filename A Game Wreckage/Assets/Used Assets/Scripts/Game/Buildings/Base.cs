@@ -28,11 +28,13 @@ public class Base : MonoBehaviour
     {
         return EventSystem.current.IsPointerOverGameObject();
     }
+
+    
     void OnMouseEnter()
     {
         if (check)
         {
-            GetComponent<SpriteRenderer>().color = Color.yellow;
+            GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.64f, 0.0f);
         }
     }
     private void Update()
@@ -40,7 +42,7 @@ public class Base : MonoBehaviour
         if (check)
         {
             Vector3 bar = transform.position;
-            if (Input.GetMouseButtonDown(0) && UI.activeSelf == false && !IsMouseOverUI())
+            if (Input.GetMouseButtonDown(0) && UI.activeSelf == false && !GridHandler.Instance.IsMouseOverUIWtihIgnores())
             {
                 Vector3 position = UtilsClass.GetMouseWorldPosition();
 
@@ -48,7 +50,7 @@ public class Base : MonoBehaviour
                 if ((int)bar.x - 4 <= (int)position.x && (int)bar.x + 4 >= (int)position.x && (int)bar.y - 4 <= (int)position.y && (int)bar.y + 4 >= (int)position.y)
                     UI.SetActive(true);
             }
-            else if (Input.GetMouseButtonDown(0) && UI.activeSelf == true && !IsMouseOverUI())
+            else if (Input.GetMouseButtonDown(0) && UI.activeSelf == true && !GridHandler.Instance.IsMouseOverUIWtihIgnores())
             {
                 Vector3 position = UtilsClass.GetMouseWorldPosition();
                 Debug.Log((int)bar.x + " , " + (int)position.x + " , " + (int)bar.y + " , " + (int)position.y);

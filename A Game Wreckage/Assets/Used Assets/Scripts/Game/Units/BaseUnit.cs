@@ -10,9 +10,10 @@ public class BaseUnit : MonoBehaviour
     public int unity;
     //статы юнита
     public int stamina;
-    public int range;
+    public float range;
     public int hp;
     public int attack;
+    public int atribute;
     public Faction Faction;
     //различные булевые переменные для контроля
     public int currentstamina;
@@ -22,6 +23,22 @@ public class BaseUnit : MonoBehaviour
     public bool IsMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();
+    }
+
+    public void IsDead()
+    {
+        if (this.hp <= 0)
+        {
+            if(this.Faction == Faction.Player1)
+            {
+                UnitHandler.Instance.P1max--;
+            }
+            else
+            {
+                UnitHandler.Instance.P2max--;
+            }
+            Destroy(this.gameObject);
+        }
     }
 
     //void Update()

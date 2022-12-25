@@ -22,7 +22,7 @@ public class Pathfinding
         return grid;
     }
 
-    public List<PathNode> FindPath(int startX,int startY, int endX, int endY)
+    public List<PathNode> FindPath(int startX,int startY, int endX, int endY, int atribute)
     {
         PathNode startNode = grid.GetValue(startX, startY);
         PathNode endNode = grid.GetValue(endX, endY);
@@ -68,7 +68,7 @@ public class Pathfinding
                 {
                     continue;
                 }
-                if (neighbourNode.type != 1)    
+                if (neighbourNode.type > atribute)    
                 {
                     continue;
                 }
