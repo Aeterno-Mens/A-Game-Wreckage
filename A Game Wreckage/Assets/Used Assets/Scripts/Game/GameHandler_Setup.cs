@@ -18,6 +18,7 @@ public class GameHandler_Setup : MonoBehaviour {
     [SerializeField] public GameObject Ipoint2;
     [SerializeField] public GameObject Ipoint3;
     private List<GameObject> Ipoints = new List<GameObject>();
+    [SerializeField] private GameObject VictoryScreen;
     private Vector3 cameraPosition = new Vector3(97,60);
     private float orthoSize = 60f;
     public static GameHandler_Setup Instance;
@@ -82,8 +83,10 @@ public class GameHandler_Setup : MonoBehaviour {
             //if(orthoSize<100f)
             orthoSize += 10f;
         }
+
         if (Input.GetKeyDown(KeyCode.Escape))
             PauseMenu.SetActive(!PauseMenu.activeSelf);
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             EndTurn();
@@ -125,6 +128,24 @@ public class GameHandler_Setup : MonoBehaviour {
             }
         }
     }
+
+    public void Win() 
+    {
+        if (GridHandler.Instance.base1.hp == 0) 
+        {
+            playerTurn = Faction.None;
+            VictoryScreen.SetActive(true);
+            
+            Home();
+        }
+        if (GridHandler.Instance.base2.hp == 0) 
+        {
+            playerTurn = Faction.None;
+            VictoryScreen.SetActive(true);
+            
+            Home();
+        }
+    }
     public void NewTurn(bool a, bool b)
     {
         a1 = 0;
@@ -138,6 +159,10 @@ public class GameHandler_Setup : MonoBehaviour {
         // TODO: handle cells around bases for different faction units (damage)
         if(UnitHandler.Instance.SelectedUnit != null)
             UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Selected").gameObject.SetActive(false);
+
+        GridHandler.Instance.base1.AtEndTurn();
+        GridHandler.Instance.base2.AtEndTurn();
+        Win();
         UnitHandler.Instance.SelectedUnit = null;
         foreach (GameObject g in UnitHandler.Instance.spawnedUnits)
         {
