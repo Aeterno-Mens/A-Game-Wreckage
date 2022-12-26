@@ -28,6 +28,12 @@ public class GameHandler_Setup : MonoBehaviour {
     private bool space = true;
     public bool action = false;
     public TextMeshProUGUI Turn;
+    public TextMeshProUGUI ResourceAmount;
+    //Ресурсы игрока1/2 и количество точек влияния под контролем
+    public int ResourceP1 = 0;
+    public int ResourceP2 = 0;
+    int a1 = 0;
+    int a2 = 0;
     [SerializeField] public Faction playerTurn;
     void Awake()
     {
@@ -121,8 +127,8 @@ public class GameHandler_Setup : MonoBehaviour {
     }
     public void NewTurn(bool a, bool b)
     {
-        int a1 = 0;
-        int a2 = 0;
+        a1 = 0;
+        a2 = 0;
         GridHandler.Instance.base1.UI.SetActive(false);
         GridHandler.Instance.base2.UI.SetActive(false);
         GridHandler.Instance.base1.GetComponent<SpriteRenderer>().color = GridHandler.Instance.base1.startcolor;
@@ -166,6 +172,8 @@ public class GameHandler_Setup : MonoBehaviour {
                 if (space)
                 {
                     NewTurn(true, false);
+                    ResourceP1 += 500 + a1 * 300;
+                    ResourceAmount.text = ResourceP1.ToString();
                     playerTurn = Faction.Player1;
                     Turn.text = "Ход Игрока1";
                 }
@@ -175,6 +183,8 @@ public class GameHandler_Setup : MonoBehaviour {
                 if (space)
                 {
                     NewTurn(false, true);
+                    ResourceP2 += 500 + a2 * 300;
+                    ResourceAmount.text = ResourceP2.ToString();
                     playerTurn = Faction.Player2;
                     Turn.text = "Ход Игрока2";
                 }

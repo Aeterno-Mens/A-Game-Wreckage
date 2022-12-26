@@ -164,6 +164,7 @@ public class GridHandler : MonoBehaviour
                 Debug.Log("type: " + pathfinding.GetNode(x, y).type + " occupation = " + pathfinding.GetNode(x, y).occupied);
                 //pathfinding.GetNode(x, y).SetIsWalkable(Tilemap.TilemapObject.TilemapSprite.Water);
             }
+            UnitHandler.Instance.UnselectUnit();
         }
         //if (Input.GetKeyDown(KeyCode.T))
         //{
@@ -278,9 +279,9 @@ public class GridHandler : MonoBehaviour
         {
             var u = UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>();
             var t = GetUnitAtCoordinate(x, y).GetComponent<BaseUnit>();
-            if (u.attacked == false && Mathf.Sqrt((t.unitx - u.unitx) ^ 2 + (t.unity - u.unity) ^ 2) <= u.range)
+            if (u.attacked == false && Mathf.Sqrt((int)Mathf.Pow((t.unitx - u.unitx), 2) + (int)Mathf.Pow((t.unity - u.unity), 2)) <= u.range)
             {
-                Debug.Log("Расстояние между ними собственно = " + Mathf.Sqrt((t.unitx - u.unitx) ^ 2 + (t.unity - u.unity) ^ 2));
+                Debug.Log("Расстояние между ними собственно = " + Mathf.Sqrt((int)Mathf.Pow((t.unitx - u.unitx), 2) + (int)Mathf.Pow((t.unity - u.unity), 2)) + " x2 и x1 "+ t.unitx+" "+u.unitx + " y2 и y1 " + t.unity + " " + u.unity);
                 
                 
                 //sprite[0].gameObject.SetActive(true);

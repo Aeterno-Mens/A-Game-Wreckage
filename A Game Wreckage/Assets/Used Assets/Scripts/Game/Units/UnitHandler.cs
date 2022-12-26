@@ -49,12 +49,27 @@ public class UnitHandler : MonoBehaviour
 
     public void SetSelectedUnit(GameObject u)
     {
-        if (SelectedUnit != null)
+        if (!GameHandler_Setup.Instance.action)
         {
-            SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Selected").gameObject.SetActive(false);
+            if (SelectedUnit != null)
+            {
+                SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Selected").gameObject.SetActive(false);
+            }
+            SelectedUnit = u;
+            SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Aknowledged").gameObject.GetComponent<AudioSource>().Play();
+            SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Selected").gameObject.SetActive(true);
         }
-        SelectedUnit = u;
-        SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Aknowledged").gameObject.GetComponent<AudioSource>().Play();
-        SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Selected").gameObject.SetActive(true);
+    }
+
+    public void UnselectUnit()
+    {
+        if (!GameHandler_Setup.Instance.action)
+        {
+            if (SelectedUnit != null)
+            {
+                SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Selected").gameObject.SetActive(false);
+            }
+            SelectedUnit = null;
+        }
     }
 }

@@ -2938,6 +2938,9 @@ MonoBehaviour:
   unit: {fileID: 0}
   action: 0
   Turn: {fileID: 428311008}
+  ResourceAmount: {fileID: 1546394506}
+  ResourceP1: 0
+  ResourceP2: 0
   playerTurn: 0
 --- !u!4 &786162223
 Transform:

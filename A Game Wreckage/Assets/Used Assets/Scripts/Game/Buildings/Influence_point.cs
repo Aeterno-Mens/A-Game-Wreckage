@@ -7,7 +7,6 @@ public class Influence_point : MonoBehaviour
     public static Influence_point Instance;
     public bool check;
     public int cp;
-    public GameObject UI;
     public Color startcolor;
     public Faction Faction;
     // Start is called before the first frame update
@@ -41,14 +40,17 @@ public class Influence_point : MonoBehaviour
         if(this.cp == 2)
         {
             Faction = Faction.None;
+            GetComponent<SpriteRenderer>().color = startcolor;
         }
         else if (this.cp == 0)
         {
-            Faction = Faction.Player1;
+            Faction = Faction.Player2;
+            GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.4f, 0.4f);
         }
         else if (this.cp == 4)
         {
-            Faction = Faction.Player2;
+            Faction = Faction.Player1;
+            GetComponent<SpriteRenderer>().color = new Color(0.4f, 0.8f, 1.0f);
         }
     }
 

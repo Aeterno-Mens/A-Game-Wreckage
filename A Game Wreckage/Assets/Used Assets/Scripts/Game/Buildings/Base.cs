@@ -35,7 +35,10 @@ public class Base : MonoBehaviour
     {
         if (check)
         {
-            GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.64f, 0.0f);
+            if (Faction == Faction.Player2)
+                GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.64f, 0.0f);
+            else if (Faction == Faction.Player1)
+                GetComponent<SpriteRenderer>().color = new Color(0.4f, 0.6f, 1.0f);
         }
     }
     private void Update()
