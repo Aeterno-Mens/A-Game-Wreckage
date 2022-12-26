@@ -12,6 +12,7 @@ public class GameHandler_Setup : MonoBehaviour {
 
     [SerializeField] private CameraFollow cameraFollow;
     [SerializeField] private GameObject PauseMenu;
+    [SerializeField] private GameObject VictoryScreen;
     private Vector3 cameraPosition = new Vector3(97,60);
     private float orthoSize = 60f;
     public static GameHandler_Setup Instance;
@@ -65,8 +66,10 @@ public class GameHandler_Setup : MonoBehaviour {
             //if(orthoSize<100f)
             orthoSize += 10f;
         }
+
         if (Input.GetKeyDown(KeyCode.Escape))
             PauseMenu.SetActive(!PauseMenu.activeSelf);
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (playerTurn == Faction.Player1)
@@ -101,6 +104,24 @@ public class GameHandler_Setup : MonoBehaviour {
         SceneManager.LoadScene(0);
     }
 
+    public void Win() 
+    {
+        if (GridHandler.Instance.base1.hp == 0) 
+        {
+            playerTurn = Faction.None;
+            VictoryScreen.SetActive(true);
+            
+            Home();
+        }
+        if (GridHandler.Instance.base2.hp == 0) 
+        {
+            playerTurn = Faction.None;
+            VictoryScreen.SetActive(true);
+            
+            Home();
+        }
+    }
+
     public void NewTurn(bool a, bool b)
     {
         GridHandler.Instance.base1.UI.SetActive(false);
@@ -110,6 +131,9 @@ public class GameHandler_Setup : MonoBehaviour {
         GridHandler.Instance.base1.check = a;
         GridHandler.Instance.base2.check = b;
         // TODO: handle cells around bases for different faction units (damage)
+        GridHandler.Instance.base1.AtEndTurn();
+        GridHandler.Instance.base2.AtEndTurn();
+        Win();
 
         UnitHandler.Instance.SelectedUnit = null;
         foreach (GameObject g in UnitHandler.Instance.spawnedUnits)

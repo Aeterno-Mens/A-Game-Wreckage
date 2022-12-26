@@ -9,7 +9,7 @@ public class Base : MonoBehaviour
     // TODO: Health
     public static Base Instance;
     public bool check;
-    [SerializeField] int hp;
+    [SerializeField] public int hp;
     public void OccupieNode()
     {
         GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).SetIsOccupied(this.Faction);
@@ -59,14 +59,31 @@ public class Base : MonoBehaviour
             }
         }
     }
+
     void OnMouseExit()
     {
         GetComponent<SpriteRenderer>().color = startcolor;
     }
 
-    public void AttackBase() 
+    public void AtEndTurn() 
     {
-        hp -= 5;
+        int x, y;
+        var BaseX = this.transform.position.x;
+        var BaseY = this.transform.position.y;
+        if (check) 
+        {
+            foreach (var unitPos in UnitHandler.Instance.GetSurroundingCellsP1(BaseX, BaseY)) 
+            {
+                GridHandler.Instance.pathfinding.GetGrid().GetXY(unitPos, out x, out y);
+                var node = GridHandler.Instance.pathfinding.GetNode(x, y);
+                if (node.occupied != this.Faction && node.occupied != Faction.None) 
+                {
+                    hp -= 1;
+                    Debug.Log("Decrease hp to: " + hp);
+                    break;
+                }
+            }
+        }
     }
 }
 public enum Faction
