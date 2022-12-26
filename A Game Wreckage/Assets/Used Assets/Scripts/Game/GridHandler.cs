@@ -270,7 +270,16 @@ public class GridHandler : MonoBehaviour
                     pathfinding.GetNode(x, y).SetIsOccupied(u.Faction);
                     u.currentstamina -= cost;
                 }
+                else
+                {
+                    u.transform.Find("Negative").gameObject.GetComponent<AudioSource>().Play();
+                }
             }
+            else
+            {
+                u.transform.Find("Negative").gameObject.GetComponent<AudioSource>().Play();
+            }
+
         }
     }
     public void Attack(int x, int y)
@@ -285,13 +294,16 @@ public class GridHandler : MonoBehaviour
                 
                 
                 //sprite[0].gameObject.SetActive(true);
-
                 //.Find(x => x.name == "Damaged");
                 t.hp -= u.attack;
                 u.attacked = true;
                 //sprite.SetActive(true);
                 StartCoroutine(DelayedAttack(0.5f, t, u));
                 t.IsDead();
+            }
+            else
+            {
+                u.transform.Find("Negative").gameObject.GetComponent<AudioSource>().Play();
             }
         }
     }

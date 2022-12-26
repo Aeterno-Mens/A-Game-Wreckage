@@ -14,7 +14,7 @@ public class PathNode
     //1 - трава, 2 - вода, 3 - гора
     public int type;
     public Faction occupied;
-
+    public Sprite check;
     public PathNode CameFromNode;
     public PathNode(Grid<PathNode> grid, int x, int y)
     {
