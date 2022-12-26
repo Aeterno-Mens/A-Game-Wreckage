@@ -75,7 +75,7 @@ public class GridHandler : MonoBehaviour
         pathfinding = new Pathfinding(25, 25, Vector3.zero);
         //heatMapGenericVisual.SetGrid(grid);
         //pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
-        map = GH.GetComponent<GameHandler_Setup>().map;
+        //map = GH.GetComponent<GameHandler_Setup>().map;
         pathfinding = new Pathfinding(25, 25, Vector3.zero);
         pathfindingGenericVisual.SetGrid(pathfinding.GetGrid());
         tilemap = new Tilemap(25, 25, 10f, Vector3.zero);
@@ -203,6 +203,7 @@ public class GridHandler : MonoBehaviour
     IEnumerator DelayedMovement(float delayTime, List<PathNode> path)
     {
         GameHandler_Setup.Instance.action = true;
+        UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Moving out").gameObject.GetComponent<AudioSource>().Play();
         for (int i = 0; i < path.Count; ++i)
         {
             UnitHandler.Instance.SelectedUnit.transform.position = new Vector3(path[i].x * 10 + 5, path[i].y * 10 + 5);
@@ -223,6 +224,7 @@ public class GridHandler : MonoBehaviour
         bool notdead = true;
         var damaged = t.gameObject.transform.Find("Damaged").gameObject;
         var attacking = u.gameObject.transform.Find("Attacking").gameObject;
+        u.transform.Find("Attack").gameObject.GetComponent<AudioSource>().Play();
         if (t.hp <= 0)
             notdead = false;
         //Wait for the specified delay time before continuing.

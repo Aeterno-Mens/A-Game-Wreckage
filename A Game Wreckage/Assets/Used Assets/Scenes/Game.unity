@@ -413,7 +413,7 @@ MonoBehaviour:
         m_MethodName: Create
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8836098366943902741, guid: d5c583d6582d1ad45948b176c92999d9, type: 3}
+          m_ObjectArgument: {fileID: 8836098366943902741, guid: 9bfcc2116e8ad1a4b9a7183824a166e3, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1887,7 +1887,7 @@ MonoBehaviour:
         m_MethodName: Create
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8836098366943902741, guid: ab8d20cf2183c2a4da90fa8265b57300, type: 3}
+          m_ObjectArgument: {fileID: 8836098366943902741, guid: a2ad06fdca125f74db3cace561affe09, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4352,7 +4352,7 @@ PrefabInstance:
     - target: {fileID: 2781592278893769245, guid: e4d666ffaa02e614a9b49fc79ba9e2ec, type: 3}
       propertyPath: UI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1958581979}
     - target: {fileID: 2781592278893769245, guid: e4d666ffaa02e614a9b49fc79ba9e2ec, type: 3}
       propertyPath: Faction
       value: 1
@@ -6491,7 +6491,7 @@ MonoBehaviour:
         m_MethodName: Create
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8836098366943902741, guid: ab5489c394a5d2c4888204da0cd0b334, type: 3}
+          m_ObjectArgument: {fileID: 8836098366943902741, guid: 1b7bc18050953c44f852e7c31e8b91a0, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -6913,7 +6913,7 @@ MonoBehaviour:
         m_MethodName: Create
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8836098366943902741, guid: f911303c19db7ce4f8571493a0013df9, type: 3}
+          m_ObjectArgument: {fileID: 8836098366943902741, guid: a7fe2597e6ffc6049bb62dd2ffe4d280, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -7048,7 +7048,7 @@ MonoBehaviour:
         m_MethodName: Create
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8836098366943902741, guid: d1d5b3bb9e44aea4785d31a6591eb76d, type: 3}
+          m_ObjectArgument: {fileID: 8836098366943902741, guid: 17233e25240f79a428c044a41a8adab4, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -7906,7 +7906,7 @@ MonoBehaviour:
         m_MethodName: Create
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8836098366943902741, guid: 4118671cda4b1914bb8dfb694614a5d3, type: 3}
+          m_ObjectArgument: {fileID: 8836098366943902741, guid: ddbf40926d970a94eb2cd41c7283b81d, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0

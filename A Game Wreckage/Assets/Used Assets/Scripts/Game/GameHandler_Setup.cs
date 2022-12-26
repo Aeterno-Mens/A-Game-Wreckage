@@ -81,7 +81,6 @@ public class GameHandler_Setup : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             EndTurn();
-            }
         }
     }
 
@@ -131,6 +130,8 @@ public class GameHandler_Setup : MonoBehaviour {
         GridHandler.Instance.base1.check = a;
         GridHandler.Instance.base2.check = b;
         // TODO: handle cells around bases for different faction units (damage)
+        if(UnitHandler.Instance.SelectedUnit != null)
+            UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Selected").gameObject.SetActive(false);
         UnitHandler.Instance.SelectedUnit = null;
         foreach (GameObject g in UnitHandler.Instance.spawnedUnits)
         {

@@ -37,6 +37,7 @@ public class BaseUnit : MonoBehaviour
             {
                 UnitHandler.Instance.P2max--;
             }
+            UnitHandler.Instance.spawnedUnits.Remove(this.gameObject);
             Destroy(this.gameObject);
         }
     }
