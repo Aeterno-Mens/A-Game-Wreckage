@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:A Game Wreckage/Assets/Used Assets/Scripts/Game/Units/Player1/Plane1.cs.meta
 guid: 3bb25dc240c8ea64b85be327ba08a327
+========
+guid: 5f5edb2cf180e454ca02293c6e204755
+>>>>>>>> BortKiD-dev:A Game Wreckage/Assets/Used Assets/Scripts/Game/Units/Player1/Sniper1.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

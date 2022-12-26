@@ -49,7 +49,6 @@ public class GameHandler_Setup : MonoBehaviour {
             ChangeState(GameState.SpawnPlayer1);
         else if (GameState == GameState.Player2Turn)
             ChangeState(GameState.SpawnPlayer2);
-
     }
     private void Update() {
         float cameraSpeed = 100f;
@@ -82,6 +81,7 @@ public class GameHandler_Setup : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             EndTurn();
+            }
         }
     }
 
@@ -103,7 +103,6 @@ public class GameHandler_Setup : MonoBehaviour {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
-
     public void EndTurn()
     {
         if (!action)
@@ -131,6 +130,7 @@ public class GameHandler_Setup : MonoBehaviour {
         GridHandler.Instance.base2.GetComponent<SpriteRenderer>().color = GridHandler.Instance.base2.startcolor;
         GridHandler.Instance.base1.check = a;
         GridHandler.Instance.base2.check = b;
+        // TODO: handle cells around bases for different faction units (damage)
         UnitHandler.Instance.SelectedUnit = null;
         foreach (GameObject g in UnitHandler.Instance.spawnedUnits)
         {
@@ -145,7 +145,6 @@ public class GameHandler_Setup : MonoBehaviour {
             if (g.GetComponent<Influence_point>().Faction == Faction.Player2)
                 a2++;
         }
-
     }
 
     public void ChangeState(GameState newState)

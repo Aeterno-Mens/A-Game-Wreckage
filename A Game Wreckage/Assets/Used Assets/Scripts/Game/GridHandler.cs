@@ -15,6 +15,7 @@ public class GridHandler : MonoBehaviour
     [SerializeField] public Base base1;
     [SerializeField] public Base base2;
     //private Grid<HeatMapGridObject> grid;
+
     public Pathfinding pathfinding;
     private Tilemap tilemap;
     private Tilemap.TilemapObject.TilemapSprite tilemapSprite = Tilemap.TilemapObject.TilemapSprite.None;
@@ -74,8 +75,10 @@ public class GridHandler : MonoBehaviour
         pathfinding = new Pathfinding(25, 25, Vector3.zero);
         //heatMapGenericVisual.SetGrid(grid);
         //pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
+        map = GH.GetComponent<GameHandler_Setup>().map;
+        pathfinding = new Pathfinding(25, 25, Vector3.zero);
         pathfindingGenericVisual.SetGrid(pathfinding.GetGrid());
-        tilemap = new Tilemap(25, 25, 10f, Vector3.zero);//new Vector3(0, -110));
+        tilemap = new Tilemap(25, 25, 10f, Vector3.zero);
         tilemap.SetTilemapVisual(tilemapGenericVisual);
         tilemap.Load("save_" + GameHandler_Setup.Instance.map);
         for (int i = 0; i < pathfinding.GetGrid().GetWidth(); i++)
@@ -98,7 +101,6 @@ public class GridHandler : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !IsMouseOverUIWtihIgnores())
         {
-            //grid.SetValue(UtilsClass.GetMouseWorldPosition(), true);
             Vector3 position = UtilsClass.GetMouseWorldPosition();
             //HeatMapGridObject heatMapGridObject = grid.GetValue(position);
             //if (heatMapGridObject != null)

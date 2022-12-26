@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:A Game Wreckage/Assets/Used Assets/Scripts/Game/Buildings/Influence_point.cs.meta
 guid: ed441767374bffe4f89e66e665147b66
+========
+guid: 3bb25dc240c8ea64b85be327ba08a327
+>>>>>>>> BortKiD-dev:A Game Wreckage/Assets/Used Assets/Scripts/Game/Units/Player1/Plane1.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

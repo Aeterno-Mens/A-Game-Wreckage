@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:A Game Wreckage/Assets/Used Assets/Audio/Units.meta
 guid: 276abe800afe6bb4dbd86c232cdd1906
 folderAsset: yes
 DefaultImporter:
+========
+guid: 1e0b6f6fc3a85a04abe3b48f71b71623
+PrefabImporter:
+>>>>>>>> BortKiD-dev:A Game Wreckage/Assets/Used Assets/Prefabs/Units/Player1/Ranger1.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

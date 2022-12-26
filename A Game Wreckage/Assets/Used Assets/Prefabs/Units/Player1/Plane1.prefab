@@ -12,7 +12,11 @@ GameObject:
   - component: {fileID: 1454446962545902666}
   - component: {fileID: 3381533097418985176}
   m_Layer: 0
+<<<<<<<< HEAD:A Game Wreckage/Assets/Used Assets/Prefabs/Units/Player1/Plane1.prefab
   m_Name: Plane1
+========
+  m_Name: Unit2
+>>>>>>>> BortKiD-dev:A Game Wreckage/Assets/Used Assets/Prefabs/Units/Player2/Unit2.prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb25dc240c8ea64b85be327ba08a327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<<< HEAD:A Game Wreckage/Assets/Used Assets/Prefabs/Units/Player1/Plane1.prefab
   unitx: 0
   unity: 0
   stamina: 0
@@ -106,3 +111,9 @@ MonoBehaviour:
   Faction: 0
   moving: 0
   attacked: 0
+========
+  UnitName: Enemy
+  x: 0
+  y: 0
+  Faction: 1
+>>>>>>>> BortKiD-dev:A Game Wreckage/Assets/Used Assets/Prefabs/Units/Player2/Unit2.prefab

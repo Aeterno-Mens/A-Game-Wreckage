@@ -8,6 +8,7 @@ public class Base : MonoBehaviour
 {
     public static Base Instance;
     public bool check;
+    [SerializeField] int hp;
     public void OccupieNode()
     {
         GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).SetIsOccupied(this.Faction);
@@ -62,6 +63,10 @@ public class Base : MonoBehaviour
     void OnMouseExit()
     {
         GetComponent<SpriteRenderer>().color = startcolor;
+    }
+    public void AttackBase() 
+    {
+        hp -= 5;
     }
 }
 public enum Faction

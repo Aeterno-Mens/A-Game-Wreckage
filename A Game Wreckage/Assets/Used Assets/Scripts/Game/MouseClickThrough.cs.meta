@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:A Game Wreckage/Assets/Used Assets/Scripts/Game/MouseClickThrough.cs.meta
 guid: 85a56b76c5314a24a90ad3768f6a33cd
+========
+guid: 7a37159ac3ac46a4e90d943370c2a5f6
+>>>>>>>> BortKiD-dev:A Game Wreckage/Assets/Used Assets/Scripts/Game/Units/Player1/Ranger1.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
