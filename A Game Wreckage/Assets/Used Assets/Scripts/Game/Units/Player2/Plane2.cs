@@ -7,9 +7,14 @@ public class Plane2 : BasePlayer2
     // Start is called before the first frame update
     void Start()
     {
-        this.hp = 250;
-        this.stamina = 75;
-        this.attack = 80;
+        this.cost = 500;
+        this.stamina = 225;
+        this.range = 15.0f;
+        this.hp = 500;
+        this.attack = 175;
+        this.currentstamina = stamina;
+        this.atribute = 3;
+        this.tier = 3;
     }
 
     // Update is called once per frame

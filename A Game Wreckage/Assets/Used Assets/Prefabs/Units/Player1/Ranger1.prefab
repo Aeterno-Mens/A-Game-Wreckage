@@ -1380,6 +1380,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitx: 0
   unity: 0
+  tier: 2
+  cost: 350
   stamina: 0
   range: 0
   hp: 0

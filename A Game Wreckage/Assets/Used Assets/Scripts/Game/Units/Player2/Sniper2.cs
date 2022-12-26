@@ -7,9 +7,14 @@ public class Sniper2 : BasePlayer2
     // Start is called before the first frame update
     void Start()
     {
-        this.hp = 250;
+        this.cost = 400;
         this.stamina = 75;
-        this.attack = 80;
+        this.range = 20.0f;
+        this.hp = 150;
+        this.attack = 250;
+        this.currentstamina = stamina;
+        this.atribute = 1;
+        this.tier = 2;
     }
 
     // Update is called once per frame

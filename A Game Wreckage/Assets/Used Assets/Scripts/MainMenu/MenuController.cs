@@ -199,5 +199,3 @@ public class MenuController : MonoBehaviour
         public int height;
     }
 }
-
-

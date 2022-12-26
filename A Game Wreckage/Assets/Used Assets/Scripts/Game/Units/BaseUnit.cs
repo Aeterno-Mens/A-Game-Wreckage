@@ -8,7 +8,9 @@ public class BaseUnit : MonoBehaviour
     //координаты с которыми мы будем работать
     public int unitx;
     public int unity;
+    public int tier;
     //статы юнита
+    public int cost;
     public int stamina;
     public float range;
     public int hp;
@@ -41,30 +43,4 @@ public class BaseUnit : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.K))
-    //    {
-    //        moving = true;
-    //    }
-    //    if (!moving)
-    //        return;
-    //    if (Input.GetMouseButtonDown(0) && !IsMouseOverUI())
-    //    {
-    //        //grid.SetValue(UtilsClass.GetMouseWorldPosition(), true);
-    //        Vector3 position = UtilsClass.GetMouseWorldPosition();
-    //        GridHandler.Instance.pathfinding.GetGrid().GetXY(position, out int x, out int y);
-    //        List<PathNode> path = GridHandler.Instance.pathfinding.FindPath(this.unitx, this.unity, x, y);
-    //        if (path != null)
-    //        {
-    //            for (int i = 0; i < path.Count; ++i)
-    //            {
-    //                this.unitx = path[i].x;
-    //                this.unity = path[i].y;
-    //                //DoDelayAction(1.0f);
-    //            }
-    //        }
-    //    }
-    //}
 }

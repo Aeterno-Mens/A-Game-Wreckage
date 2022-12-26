@@ -7,9 +7,14 @@ public class Ranger2 : BasePlayer2
     // Start is called before the first frame update
     void Start()
     {
-        this.hp = 250;
-        this.stamina = 75;
-        this.attack = 80;
+        this.cost = 350;
+        this.stamina = 200;
+        this.range = 7.5f;
+        this.hp = 450;
+        this.attack = 275;
+        this.currentstamina = stamina;
+        this.atribute = 1;
+        this.tier = 2;
     }
 
     // Update is called once per frame

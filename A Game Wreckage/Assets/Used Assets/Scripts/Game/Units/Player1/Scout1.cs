@@ -7,9 +7,14 @@ public class Scout1 : BasePlayer
     // Start is called before the first frame update
     void Start()
     {
-        this.hp = 250;
-        this.stamina = 75;
-        this.attack = 80;
+        this.cost = 350;
+        this.stamina = 150;
+        this.range = 12.5f;
+        this.hp = 200;
+        this.attack = 120;
+        this.currentstamina = stamina;
+        this.atribute = 2;
+        this.tier = 2;
     }
 
     // Update is called once per frame

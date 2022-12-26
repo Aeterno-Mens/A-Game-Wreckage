@@ -46,41 +46,41 @@ public class GridHandler : MonoBehaviour
     }
     public void GenerateGrid()
     {
-        if(GameHandler_Setup.Instance.map == 1)
+        if(GameHandler.Instance.map == 1)
         {
             base1.transform.position = new Vector3(15, 15);
             base2.transform.position = new Vector3(235, 235);
-            GameHandler_Setup.Instance.Ipoint1.transform.position = new Vector3(45, 65);
-            GameHandler_Setup.Instance.Ipoint2.transform.position = new Vector3(105, 105);
-            GameHandler_Setup.Instance.Ipoint3.transform.position = new Vector3(165, 185);
+            GameHandler.Instance.Ipoint1.transform.position = new Vector3(45, 65);
+            GameHandler.Instance.Ipoint2.transform.position = new Vector3(105, 105);
+            GameHandler.Instance.Ipoint3.transform.position = new Vector3(165, 185);
         }
-        else if(GameHandler_Setup.Instance.map == 2)
+        else if(GameHandler.Instance.map == 2)
         {
             base1.transform.position = new Vector3(125, 15);
             base2.transform.position = new Vector3(125, 235);
-            GameHandler_Setup.Instance.Ipoint1.transform.position = new Vector3(125, 65);
-            GameHandler_Setup.Instance.Ipoint2.transform.position = new Vector3(125, 125);
-            GameHandler_Setup.Instance.Ipoint3.transform.position = new Vector3(125, 185);
+            GameHandler.Instance.Ipoint1.transform.position = new Vector3(125, 65);
+            GameHandler.Instance.Ipoint2.transform.position = new Vector3(125, 125);
+            GameHandler.Instance.Ipoint3.transform.position = new Vector3(125, 185);
         }
-        else if (GameHandler_Setup.Instance.map == 3)
+        else if (GameHandler.Instance.map == 3)
         {
             base1.transform.position = new Vector3(125, 15);
             base2.transform.position = new Vector3(125, 235);
-            GameHandler_Setup.Instance.Ipoint1.transform.position = new Vector3(125, 75);
-            GameHandler_Setup.Instance.Ipoint2.transform.position = new Vector3(125, 135);
-            GameHandler_Setup.Instance.Ipoint3.transform.position = new Vector3(125, 195);
+            GameHandler.Instance.Ipoint1.transform.position = new Vector3(125, 75);
+            GameHandler.Instance.Ipoint2.transform.position = new Vector3(125, 135);
+            GameHandler.Instance.Ipoint3.transform.position = new Vector3(125, 195);
         }
         //grid = new Grid<HeatMapGridObject>(2, 4, 10f, new Vector3(-30, 0), (Grid<HeatMapGridObject> g, int x, int y) => new HeatMapGridObject(g, x, y));
         //heatMapVisual.SetGrid(grid);
         pathfinding = new Pathfinding(25, 25, Vector3.zero);
         //heatMapGenericVisual.SetGrid(grid);
         //pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
-        //map = GH.GetComponent<GameHandler_Setup>().map;
+        //map = GH.GetComponent<GameHandler>().map;
         pathfinding = new Pathfinding(25, 25, Vector3.zero);
         pathfindingGenericVisual.SetGrid(pathfinding.GetGrid());
         tilemap = new Tilemap(25, 25, 10f, Vector3.zero);
         tilemap.SetTilemapVisual(tilemapGenericVisual);
-        tilemap.Load("save_" + GameHandler_Setup.Instance.map);
+        tilemap.Load("save_" + GameHandler.Instance.map);
         for (int i = 0; i < pathfinding.GetGrid().GetWidth(); i++)
         {
             for (int j = 0; j < pathfinding.GetGrid().GetHeight(); ++j)
@@ -94,7 +94,7 @@ public class GridHandler : MonoBehaviour
         Debug.Log("Loaded");
         base1.OccupieNode();
         base2.OccupieNode();
-        GameHandler_Setup.Instance.ChangeState(GameState.Player1Turn);
+        GameHandler.Instance.ChangeState(GameState.Player1Turn);
     }
 
     private void Update()
@@ -119,7 +119,7 @@ public class GridHandler : MonoBehaviour
             pathfinding.GetGrid().GetXY(position, out int x, out int y);
             //List<PathNode> path = pathfinding.FindPath(0, 0, x, y);
             
-            if (GameHandler_Setup.Instance.GameState == GameState.Player1Turn)
+            if (GameHandler.Instance.GameState == GameState.Player1Turn)
             {
                 if (GetUnitAtCoordinate(x, y) != null && pathfinding.GetNode(x, y).occupied == Faction.Player1) 
                 {
@@ -135,7 +135,7 @@ public class GridHandler : MonoBehaviour
                     Attack(x, y);
                 }
             }
-            if (GameHandler_Setup.Instance.GameState == GameState.Player2Turn)
+            if (GameHandler.Instance.GameState == GameState.Player2Turn)
             {
                 if (GetUnitAtCoordinate(x, y) != null && pathfinding.GetNode(x, y).occupied == Faction.Player2)
                 {
@@ -203,7 +203,7 @@ public class GridHandler : MonoBehaviour
     //Так как Update обновляется каждый фрейм, то для задержки чего-то требуется Coroutine что ниже
     IEnumerator DelayedMovement(float delayTime, List<PathNode> path)
     {
-        GameHandler_Setup.Instance.action = true;
+        GameHandler.Instance.action = true;
         UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Moving out").gameObject.GetComponent<AudioSource>().Play();
         for (int i = 0; i < path.Count; ++i)
         {
@@ -215,13 +215,13 @@ public class GridHandler : MonoBehaviour
             }
             yield return new WaitForSeconds(delayTime);
         }
-        GameHandler_Setup.Instance.action = false;
+        GameHandler.Instance.action = false;
         //Do the action after the delay time has finished.
     }
 
     IEnumerator DelayedAttack(float delayTime, BaseUnit t, BaseUnit u)
     {
-        GameHandler_Setup.Instance.action = true;
+        GameHandler.Instance.action = true;
         bool notdead = true;
         var damaged = t.gameObject.transform.Find("Damaged").gameObject;
         var attacking = u.gameObject.transform.Find("Attacking").gameObject;
@@ -236,7 +236,7 @@ public class GridHandler : MonoBehaviour
         if(notdead)
             damaged.SetActive(false);
         attacking.SetActive(false);
-        GameHandler_Setup.Instance.action = false;
+        GameHandler.Instance.action = false;
     }
 
     public void Movement(Vector3 position, int x, int y)
@@ -263,7 +263,7 @@ public class GridHandler : MonoBehaviour
                     //        Debug.Log("x1 = " + path[i - 1].x + " y1 = " + path[i - 1].y + " x2 = " + path[i].x + " y2 = " + path[i].y);
                     //    }
                     //Переместил все в coroutine, чтобы отрисовывалось постепенно и можно было просмотреть как он собственно идет
-                    StartCoroutine(DelayedMovement(0.25f, path));
+                    StartCoroutine(DelayedMovement(0.1f, path));
                     //}
                     UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().unitx = x;
                     UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().unity = y;

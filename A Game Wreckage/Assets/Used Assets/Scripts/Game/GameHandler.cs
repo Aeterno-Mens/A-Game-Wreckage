@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 
-public class GameHandler_Setup : MonoBehaviour {
+public class GameHandler : MonoBehaviour {
 
     [SerializeField] private CameraFollow cameraFollow;
     [SerializeField] private GameObject PauseMenu;
@@ -19,9 +19,10 @@ public class GameHandler_Setup : MonoBehaviour {
     [SerializeField] public GameObject Ipoint3;
     private List<GameObject> Ipoints = new List<GameObject>();
     [SerializeField] private GameObject VictoryScreen;
+    public TextMeshProUGUI Winner;
     private Vector3 cameraPosition = new Vector3(97,60);
     private float orthoSize = 60f;
-    public static GameHandler_Setup Instance;
+    public static GameHandler Instance;
     public GameState GameState;
     public int map = 0;
     public bool bot = false;
@@ -33,8 +34,10 @@ public class GameHandler_Setup : MonoBehaviour {
     //Ресурсы игрока1/2 и количество точек влияния под контролем
     public int ResourceP1 = 0;
     public int ResourceP2 = 0;
-    int a1 = 0;
-    int a2 = 0;
+    public int a1 = 0;
+    public int a2 = 0;
+    public int UpgradeP1 = 1;
+    public int UpgradeP2 = 1;
     [SerializeField] public Faction playerTurn;
     void Awake()
     {
@@ -52,9 +55,9 @@ public class GameHandler_Setup : MonoBehaviour {
     public void Create(GameObject prefab)
     {
         unit = prefab;
-        if (GameState == GameState.Player1Turn)
+        if (GameState == GameState.Player1Turn && prefab.GetComponent<BaseUnit>().tier <= UpgradeP1)
             ChangeState(GameState.SpawnPlayer1);
-        else if (GameState == GameState.Player2Turn)
+        else if (GameState == GameState.Player2Turn && prefab.GetComponent<BaseUnit>().tier <= UpgradeP2)
             ChangeState(GameState.SpawnPlayer2);
     }
     private void Update() {
@@ -131,19 +134,21 @@ public class GameHandler_Setup : MonoBehaviour {
 
     public void Win() 
     {
-        if (GridHandler.Instance.base1.hp == 0) 
+        if (GridHandler.Instance.base1.hp < 0) 
         {
             playerTurn = Faction.None;
+            Winner.text = "Игрок2 Победил";
             VictoryScreen.SetActive(true);
             
-            Home();
+            //Home();
         }
-        if (GridHandler.Instance.base2.hp == 0) 
+        if (GridHandler.Instance.base2.hp < 0) 
         {
             playerTurn = Faction.None;
+            Winner.text = "Игрок1 Победил";
             VictoryScreen.SetActive(true);
             
-            Home();
+            //Home();
         }
     }
     public void NewTurn(bool a, bool b)
@@ -229,6 +234,29 @@ public class GameHandler_Setup : MonoBehaviour {
             path = "/" + obj.name + path;
         }
         return path;
+    }
+
+    public void Upg()
+    {
+        if (GameState == GameState.Player1Turn)
+        {
+            if (ResourceP1 > 250 * UpgradeP1 && UpgradeP1 < 4)
+            {
+                ResourceP1 -= 250 * UpgradeP1;
+                UpgradeP1++;
+                ResourceAmount.text = ResourceP1.ToString();
+            }
+        }
+
+        if (GameState == GameState.Player2Turn)
+        {
+            if (ResourceP2 > 250 * UpgradeP2 && UpgradeP2 < 4)
+            {
+                ResourceP2 -= 250 * UpgradeP2;
+                UpgradeP2++;
+                ResourceAmount.text = ResourceP2.ToString();
+            }
+        }
     }
 }
 public enum GameState

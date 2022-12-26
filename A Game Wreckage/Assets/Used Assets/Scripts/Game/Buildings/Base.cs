@@ -8,7 +8,7 @@ public class Base : MonoBehaviour
 {
     public static Base Instance;
     public bool check;
-    [SerializeField] public int hp;
+    public int hp;
     public void OccupieNode()
     {
         GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).SetIsOccupied(this.Faction);
@@ -18,19 +18,20 @@ public class Base : MonoBehaviour
     {
         startcolor = GetComponent<SpriteRenderer>().color;
         Instance = this;
+        hp = 10;
     }
 
     public GameObject UI;
     public Color startcolor;
     public Faction Faction;
-    
+
     //public 
     public bool IsMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();
     }
 
-    
+
     void OnMouseEnter()
     {
         if (check)
@@ -68,22 +69,22 @@ public class Base : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().color = startcolor;
     }
-    public void AtEndTurn() 
+    public void AtEndTurn()
     {
         int x, y;
         var BaseX = this.transform.position.x;
         var BaseY = this.transform.position.y;
-        if (check) 
+        if (check)
         {
-            foreach (var unitPos in UnitHandler.Instance.GetSurroundingCellsP1(BaseX, BaseY)) 
+            foreach (var unitPos in UnitHandler.Instance.GetSurroundingCellsP1(BaseX, BaseY))
             {
                 GridHandler.Instance.pathfinding.GetGrid().GetXY(unitPos, out x, out y);
                 var node = GridHandler.Instance.pathfinding.GetNode(x, y);
-                if (node.occupied != this.Faction && node.occupied != Faction.None) 
+                if (node.occupied != this.Faction && node.occupied != Faction.None)
                 {
                     hp -= 1;
                     Debug.Log("Decrease hp to: " + hp);
-                    break;
+                    //break;
                 }
             }
         }
