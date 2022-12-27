@@ -17,7 +17,7 @@ public class TilemapGenericVisual : MonoBehaviour
         public Vector2 uv00;
         public Vector2 uv11;
     }
-    [SerializeField] private TilemapSpriteUV[] tilemapSpriteUVArray;
+    [SerializeField] private TilemapSpriteUV[] tilemapSpriteUVArray = new TilemapSpriteUV[3];
 
     private Grid<Tilemap.TilemapObject> grid ;
     private Mesh mesh;
@@ -89,7 +89,7 @@ public class TilemapGenericVisual : MonoBehaviour
                 {
                     gridUV00 = Vector2.zero;
                     gridUV11 = Vector2.zero;
-                    quadSize = Vector3.zero;
+                    //quadSize = Vector3.zero;
                 }
                 else
                 {

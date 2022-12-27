@@ -79,8 +79,8 @@ public class GridHandler : MonoBehaviour
         pathfinding = new Pathfinding(25, 25, Vector3.zero);
         pathfindingGenericVisual.SetGrid(pathfinding.GetGrid());
         tilemap = new Tilemap(25, 25, 10f, Vector3.zero);
-        tilemap.SetTilemapVisual(tilemapGenericVisual);
         tilemap.Load("save_" + GameHandler.Instance.map);
+        tilemap.SetTilemapVisual(tilemapGenericVisual);
         for (int i = 0; i < pathfinding.GetGrid().GetWidth(); i++)
         {
             for (int j = 0; j < pathfinding.GetGrid().GetHeight(); ++j)

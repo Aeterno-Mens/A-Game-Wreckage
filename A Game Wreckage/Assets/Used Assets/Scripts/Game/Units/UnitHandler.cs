@@ -40,8 +40,8 @@ public class UnitHandler : MonoBehaviour
                     break;
                 }
             }
-            GameHandler.Instance.ChangeState(GameState.Player1Turn);
         }
+        GameHandler.Instance.ChangeState(GameState.Player1Turn);
     }
 
     public void SpawnPlayer2()
@@ -70,8 +70,8 @@ public class UnitHandler : MonoBehaviour
                     break;
                 }
             }
-            GameHandler.Instance.ChangeState(GameState.Player2Turn);
         }
+        GameHandler.Instance.ChangeState(GameState.Player2Turn);
     }
 
     public void SetSelectedUnit(GameObject u)
