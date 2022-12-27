@@ -15,6 +15,7 @@ public class Unit1 : BasePlayer
         this.currentstamina = stamina;
         this.atribute = 1;
         this.tier = 1;
+        transform.Find("Canvas").transform.Find("HealthBar").GetComponent<HealthBar>().SetMaxHealth(hp);
     }
 
     // Update is called once per frame

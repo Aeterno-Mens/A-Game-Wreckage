@@ -6,7 +6,7 @@ using UnityEngine;
 public static class SaveSystem
 {
 
-    private const string SAVE_EXTENSION = "txt";
+    private const string SAVE_EXTENSION = "json";
 
     private static readonly string SAVE_FOLDER = Application.dataPath + "/Saves/";
     private static bool isInit = false;
@@ -94,7 +94,7 @@ public static class SaveSystem
 
     public static void SaveObject(object saveObject)
     {
-        SaveObject("save", saveObject, false);
+        SaveObject("map", saveObject, false);
     }
 
     public static void SaveObject(string fileName, object saveObject, bool overwrite)

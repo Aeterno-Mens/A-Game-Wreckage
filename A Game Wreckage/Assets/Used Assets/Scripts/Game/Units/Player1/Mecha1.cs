@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Mecha1 : BasePlayer
 {
@@ -17,6 +18,9 @@ public class Mecha1 : BasePlayer
         this.atribute = 3;
         this.range = 25.0f;
         this.tier = 4;
+        transform.Find("Canvas").transform.Find("HealthBar").GetComponent<HealthBar>().SetMaxHealth(hp);
+        //Debug.Log(this.health + "1 " + GetComponent<HealthBar>() + "2 " + transform.Find("HealthBar").gameObject.GetComponent<HealthBar>() + "3 ");
+        //health.SetMaxHealth(hp);
     }
 
     // Update is called once per frame

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using CodeMonkey.Utils;
 
@@ -9,6 +10,7 @@ public class Base : MonoBehaviour
     public static Base Instance;
     public bool check;
     public int hp;
+    public AudioSource Damage, Clicked, Closed;
     public void OccupieNode()
     {
         GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).SetIsOccupied(this.Faction);
@@ -53,14 +55,20 @@ public class Base : MonoBehaviour
 
                 //Debug.Log((int)bar.x+" , "+(int)position.x+" , "+(int)bar.y+" , "+(int)position.y);
                 if ((int)bar.x - 4 <= (int)position.x && (int)bar.x + 4 >= (int)position.x && (int)bar.y - 4 <= (int)position.y && (int)bar.y + 4 >= (int)position.y)
+                {
                     UI.SetActive(true);
+                    Clicked.Play();
+                }
             }
-            else if (Input.GetMouseButtonDown(0) && UI.activeSelf == true && !GridHandler.Instance.IsMouseOverUIWtihIgnores())
+            else if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(0)) && UI.activeSelf == true && !GridHandler.Instance.IsMouseOverUIWtihIgnores())
             {
                 Vector3 position = UtilsClass.GetMouseWorldPosition();
                 Debug.Log((int)bar.x + " , " + (int)position.x + " , " + (int)bar.y + " , " + (int)position.y);
                 if ((int)bar.x - 4 >= (int)position.x || (int)bar.x + 4 <= (int)position.x || (int)bar.y - 4 >= (int)position.y || (int)bar.y + 4 <= (int)position.y)
+                {
                     UI.SetActive(false);
+                    Closed.Play();
+                }
             }
         }
     }
@@ -83,11 +91,24 @@ public class Base : MonoBehaviour
                 if (node.occupied != this.Faction && node.occupied != Faction.None)
                 {
                     hp -= 1;
+                    transform.Find("Canvas").transform.Find("HealthBar").GetComponent<HealthBar>().SetHealth(hp);
                     Debug.Log("Decrease hp to: " + hp);
+                    Damage.Play();
                     //break;
+                    Debug.Log(transform.Find("Canvas").transform.Find("Boom").GetComponent<Image>().gameObject);
+                    StartCoroutine(DelayedAnimation(0.5f));
                 }
             }
         }
+    }
+    IEnumerator DelayedAnimation(float delayTime )
+    {
+        GameHandler.Instance.action = true;
+        transform.Find("Canvas").transform.Find("Boom").GetComponent<Image>().gameObject.SetActive(true);
+        yield return new WaitForSeconds(delayTime);
+        //Do the action after the delay time has finished.
+        transform.Find("Canvas").transform.Find("Boom").GetComponent<Image>().gameObject.SetActive(false);
+        GameHandler.Instance.action = false;
     }
 }
 public enum Faction

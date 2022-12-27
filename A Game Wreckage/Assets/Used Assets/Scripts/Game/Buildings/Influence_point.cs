@@ -9,6 +9,7 @@ public class Influence_point : MonoBehaviour
     public int cp;
     public Color startcolor;
     public Faction Faction;
+    public AudioSource Changed;
     // Start is called before the first frame update
 
     private void Awake()
@@ -25,32 +26,44 @@ public class Influence_point : MonoBehaviour
             AtEndTurn();
         }
     }
+
     public void AtEndTurn()
     {
         if (GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).occupied != Faction.None)
         {
             if ((GameHandler.Instance.GameState == GameState.Player2Turn && GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).occupied == Faction.Player1) && this.cp < 4){
                 this.cp++;
+                if(cp == 4 || cp == 2)
+                    Changed.Play();
+                if (this.cp == 2)
+                {
+                    Faction = Faction.None;
+                    GetComponent<SpriteRenderer>().color = startcolor;
+                    Changed.Play();
+                }
+                else if (this.cp == 4)
+                {
+                    Faction = Faction.Player1;
+                    GetComponent<SpriteRenderer>().color = new Color(0.4f, 0.8f, 1.0f);
+                    Changed.Play();
+                }
             }
 
             if ((GameHandler.Instance.GameState == GameState.Player1Turn && GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).occupied == Faction.Player2) && this.cp > 0){
                 this.cp--;
+                if (this.cp == 2)
+                {
+                    Faction = Faction.None;
+                    GetComponent<SpriteRenderer>().color = startcolor;
+                    Changed.Play();
+                }
+                else if (this.cp == 0)
+                {
+                    Faction = Faction.Player2;
+                    GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.4f, 0.4f);
+                    Changed.Play();
+                }
             }
-        }
-        if(this.cp == 2)
-        {
-            Faction = Faction.None;
-            GetComponent<SpriteRenderer>().color = startcolor;
-        }
-        else if (this.cp == 0)
-        {
-            Faction = Faction.Player2;
-            GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.4f, 0.4f);
-        }
-        else if (this.cp == 4)
-        {
-            Faction = Faction.Player1;
-            GetComponent<SpriteRenderer>().color = new Color(0.4f, 0.8f, 1.0f);
         }
     }
 

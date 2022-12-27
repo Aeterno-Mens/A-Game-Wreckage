@@ -15,6 +15,7 @@ public class Tank2 : BasePlayer2
         this.currentstamina = stamina;
         this.atribute = 1;
         this.tier = 3;
+        transform.Find("Canvas").transform.Find("HealthBar").GetComponent<HealthBar>().SetMaxHealth(hp);
     }
 
     // Update is called once per frame

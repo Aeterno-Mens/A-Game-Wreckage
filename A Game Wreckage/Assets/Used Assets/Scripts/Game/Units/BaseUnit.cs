@@ -17,6 +17,7 @@ public class BaseUnit : MonoBehaviour
     public int attack;
     public int atribute;
     public Faction Faction;
+    //public HealthBar health;
     //различные булевые переменные для контроля
     public int currentstamina;
     public bool moving = false;
@@ -39,8 +40,9 @@ public class BaseUnit : MonoBehaviour
             {
                 UnitHandler.Instance.P2max--;
             }
-            UnitHandler.Instance.spawnedUnits.Remove(this.gameObject);
-            Destroy(this.gameObject);
+            UnitHandler.Instance.spawnedUnits.Remove(gameObject);
+            GridHandler.Instance.pathfinding.GetNode(unitx, unity).occupied = Faction.None;
+            Destroy(gameObject);
         }
     }
 }

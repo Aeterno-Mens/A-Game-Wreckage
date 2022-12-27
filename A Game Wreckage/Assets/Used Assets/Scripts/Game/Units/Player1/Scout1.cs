@@ -15,6 +15,7 @@ public class Scout1 : BasePlayer
         this.currentstamina = stamina;
         this.atribute = 2;
         this.tier = 2;
+        transform.Find("Canvas").transform.Find("HealthBar").GetComponent<HealthBar>().SetMaxHealth(hp);
     }
 
     // Update is called once per frame

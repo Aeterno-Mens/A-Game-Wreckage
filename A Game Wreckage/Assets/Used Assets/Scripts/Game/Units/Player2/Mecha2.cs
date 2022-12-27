@@ -17,6 +17,8 @@ public class Mecha2 : BasePlayer2
         this.atribute = 3;
         this.range = 25.0f;
         this.tier = 4;
+        transform.Find("Canvas").transform.Find("HealthBar").GetComponent<HealthBar>().SetMaxHealth(hp);
+        //health.SetMaxHealth(hp);
     }
 
     // Update is called once per frame
