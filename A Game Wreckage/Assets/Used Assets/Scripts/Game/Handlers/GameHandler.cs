@@ -17,10 +17,11 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] public GameObject Ipoint1;
     [SerializeField] public GameObject Ipoint2;
     [SerializeField] public GameObject Ipoint3;
+    private Vector3[] CameraOriginalPosition = new Vector3[2];
     private List<GameObject> Ipoints = new List<GameObject>();
     [SerializeField] private GameObject VictoryScreen;
     public TextMeshProUGUI Winner;
-    private Vector3 cameraPosition = new Vector3(97,60);
+    private Vector3 cameraPosition;
     private float orthoSize = 60f;
     public static GameHandler Instance;
     public GameState GameState;
@@ -44,6 +45,16 @@ public class GameHandler : MonoBehaviour {
     {
         bot = DataHolder.bot;
         map = DataHolder.map;
+        if (map == 1)
+        {
+            CameraOriginalPosition[0] = new Vector3(20, 20);
+            CameraOriginalPosition[1] = new Vector3(230, 240);
+        }
+        else if( map == 2) {
+            CameraOriginalPosition[0] = new Vector3(125, 20);
+            CameraOriginalPosition[1] = new Vector3(125, 240);
+        }
+        cameraPosition = CameraOriginalPosition[0];
         Instance = this;
         Ipoints.Add(Ipoint1);
         Ipoints.Add(Ipoint2);
@@ -65,24 +76,24 @@ public class GameHandler : MonoBehaviour {
         float cameraSpeed = 100f;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
             //ограничения камеры, чтобы мы за поле не убегали
-            if(cameraPosition.x > 40)
+            if(cameraPosition.x > 20)
                 cameraPosition += new Vector3(-1, 0) * cameraSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
-            if(cameraPosition.x<230)
+            if(cameraPosition.x<240)
                 cameraPosition += new Vector3(+1, 0) * cameraSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
-            if (cameraPosition.y < 230)
+            if (cameraPosition.y < 240)
                 cameraPosition += new Vector3(0, +1) * cameraSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) {
-            if(cameraPosition.y > 40)
+            if(cameraPosition.y > 20)
                 cameraPosition += new Vector3(0, -1) * cameraSpeed * Time.deltaTime;
         }
 
         if (Input.GetKeyDown(KeyCode.KeypadPlus) || Input.mouseScrollDelta.y > 0) {
-            if(orthoSize>10f)
+            if(orthoSize>30f)
                 orthoSize -= 10f;
         }
         if (Input.GetKeyDown(KeyCode.KeypadMinus) || Input.mouseScrollDelta.y < 0)  {
@@ -96,6 +107,14 @@ public class GameHandler : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             EndTurn();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (GameState == GameState.Player1Turn)
+                cameraPosition = CameraOriginalPosition[0];
+            else if (GameState == GameState.Player2Turn)
+                cameraPosition = CameraOriginalPosition[1];
         }
     }
 

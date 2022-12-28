@@ -17,6 +17,7 @@ public class Influence_point : MonoBehaviour
         startcolor = GetComponent<SpriteRenderer>().color;
         Instance = this;
         this.cp = 2;
+        transform.Find("Canvas").transform.Find("HealthBar").GetComponent<HealthBar>().SetHealth(cp);
     }
 
     private void Update()
@@ -33,7 +34,8 @@ public class Influence_point : MonoBehaviour
         {
             if ((GameHandler.Instance.GameState == GameState.Player2Turn && GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).occupied == Faction.Player1) && this.cp < 4){
                 this.cp++;
-                if(cp == 4 || cp == 2)
+                transform.Find("Canvas").transform.Find("HealthBar").GetComponent<HealthBar>().SetHealth(cp);
+                if (cp == 4 || cp == 2)
                     Changed.Play();
                 if (this.cp == 2)
                 {
@@ -51,6 +53,7 @@ public class Influence_point : MonoBehaviour
 
             if ((GameHandler.Instance.GameState == GameState.Player1Turn && GridHandler.Instance.pathfinding.GetNode((int)(this.transform.position.x / 10), (int)(this.transform.position.y / 10)).occupied == Faction.Player2) && this.cp > 0){
                 this.cp--;
+                transform.Find("Canvas").transform.Find("HealthBar").GetComponent<HealthBar>().SetHealth(cp);
                 if (this.cp == 2)
                 {
                     Faction = Faction.None;
