@@ -50,9 +50,16 @@ public class GameHandler : MonoBehaviour {
             CameraOriginalPosition[0] = new Vector3(20, 20);
             CameraOriginalPosition[1] = new Vector3(230, 240);
         }
-        else if( map == 2) {
+        else if (map == 2 || map == 3)
+        {
             CameraOriginalPosition[0] = new Vector3(125, 20);
             CameraOriginalPosition[1] = new Vector3(125, 240);
+        }
+        else
+        {
+            map = 1;
+            CameraOriginalPosition[0] = new Vector3(20, 20);
+            CameraOriginalPosition[1] = new Vector3(230, 240);
         }
         cameraPosition = CameraOriginalPosition[0];
         Instance = this;

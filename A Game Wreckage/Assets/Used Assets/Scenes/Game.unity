@@ -4367,7 +4367,7 @@ MonoBehaviour:
   VictoryScreen: {fileID: 1039467706}
   Winner: {fileID: 107238665}
   GameState: 0
-  map: 0
+  map: 1
   bot: 0
   unit: {fileID: 0}
   action: 0

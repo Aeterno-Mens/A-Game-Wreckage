@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class DataHolder
 {
-    public static int map = 1;
+    public static int map = 0;
     public static bool bot = false;
 }
