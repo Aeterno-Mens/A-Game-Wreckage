@@ -38,7 +38,7 @@ public class Base : MonoBehaviour
     {
         if (check)
         {
-            if (Faction == Faction.Player2)
+            if (Faction == Faction.Player2 && !GameHandler.Instance.bot)
                 GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.64f, 0.0f);
             else if (Faction == Faction.Player1)
                 GetComponent<SpriteRenderer>().color = new Color(0.4f, 0.6f, 1.0f);

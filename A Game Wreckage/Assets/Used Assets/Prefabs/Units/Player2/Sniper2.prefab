@@ -1475,12 +1475,12 @@ MonoBehaviour:
   unity: 0
   tier: 2
   cost: 400
-  stamina: 0
-  range: 0
+  stamina: 75
+  range: 20
   hp: 0
   attack: 0
-  atribute: 0
+  atribute: 1
   Faction: 1
-  currentstamina: 0
+  currentstamina: 75
   moving: 0
   attacked: 0

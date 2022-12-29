@@ -41,6 +41,10 @@ public class BaseUnit : MonoBehaviour
                 UnitHandler.Instance.P2max--;
             }
             UnitHandler.Instance.spawnedUnits.Remove(gameObject);
+            if (GameHandler.Instance.bot)
+            {
+                UnitHandler.Instance.botspawnedUnits.Remove(gameObject);
+            }
             GridHandler.Instance.pathfinding.GetNode(unitx, unity).occupied = Faction.None;
             Destroy(gameObject);
         }

@@ -109,13 +109,13 @@ MonoBehaviour:
   unity: 0
   tier: 4
   cost: 750
-  stamina: 0
-  range: 0
+  stamina: 335
+  range: 25
   hp: 0
   attack: 0
-  atribute: 0
+  atribute: 3
   Faction: 1
-  currentstamina: 0
+  currentstamina: 335
   moving: 0
   attacked: 0
 --- !u!1 &1771910347083039447

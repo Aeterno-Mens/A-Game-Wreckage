@@ -22,6 +22,78 @@ public class Pathfinding
         return grid;
     }
 
+    public PathNode FindBotPath(int startX, int startY, int endX, int endY, int atribute)
+    {
+        PathNode startNode = grid.GetValue(startX, startY);
+        PathNode endNode = grid.GetValue(endX, endY);
+
+        openList = new List<PathNode> { startNode };
+        closedList = new HashSet<PathNode>();
+
+        if (startNode == null || endNode == null)
+        {
+            // Invalid Path
+            return null;
+        }
+
+        for (int x = 0; x < grid.GetWidth(); ++x)
+        {
+            for (int y = 0; y < grid.GetHeight(); ++y)
+            {
+                PathNode pathNode = grid.GetValue(x, y);
+                pathNode.gCost = int.MaxValue;
+                pathNode.CalculateFCost();
+                pathNode.CameFromNode = null;
+            }
+        }
+        startNode.gCost = 0;
+        startNode.hCost = CalculateDistanceCost(startNode, endNode);
+        Debug.Log(startNode.hCost);
+        startNode.CalculateFCost();
+
+        //пробегаемся по гриду в поисках оптимального пути пока не дойдем
+
+        while (openList.Count > 0)
+        {
+            PathNode currentNode = GetLowestFCost(openList);
+
+            if (currentNode == endNode)
+            {
+                var tocheck = CalculatePath(endNode);
+                return ChoosePath(tocheck);
+            }
+            openList.Remove(currentNode);
+            closedList.Add(currentNode);
+            foreach (PathNode neighbourNode in GetNeighbourList(currentNode))
+            {
+                if (closedList.Contains(neighbourNode))
+                {
+                    continue;
+                }
+                if (neighbourNode.type > atribute)
+                {
+                    continue;
+                }
+                if (neighbourNode.occupied != Faction.None)
+                {
+                    continue;
+                }
+                int tentativeGCost = currentNode.gCost + CalculateDistanceCost(currentNode, neighbourNode);
+                if (tentativeGCost < neighbourNode.gCost)
+                {
+                    neighbourNode.CameFromNode = currentNode;
+                    neighbourNode.gCost = tentativeGCost;
+                    neighbourNode.hCost = CalculateDistanceCost(neighbourNode, endNode);
+                    neighbourNode.CalculateFCost();
+
+                    if (!openList.Contains(neighbourNode))
+                        openList.Add(neighbourNode);
+                }
+            }
+        }
+        return null;
+    }
+
     public List<PathNode> FindPath(int startX,int startY, int endX, int endY, int atribute)
     {
         PathNode startNode = grid.GetValue(startX, startY);
@@ -152,5 +224,22 @@ public class Pathfinding
                 lowestFCostNode = pathNodeList[i];  
         }
         return lowestFCostNode;
+    }
+    public PathNode ChoosePath(List<PathNode> path)
+    {
+        var u = UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>();
+        //path.Reverse();
+        var curStamina = u.stamina;
+        PathNode previousPoint = path[0];
+        foreach (var CurentPoint in path)
+        {
+            var cost = GridHandler.Instance.pathfinding.CalculateDistanceCost(GridHandler.Instance.pathfinding.GetGrid().GetValue(u.unitx, u.unity), GridHandler.Instance.pathfinding.GetGrid().GetValue(CurentPoint.x, CurentPoint.y));
+            if (curStamina - cost < 0)
+                return previousPoint;
+            curStamina = curStamina - cost;
+            previousPoint = CurentPoint;
+        }
+        return previousPoint;
+
     }
 }

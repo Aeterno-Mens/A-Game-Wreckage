@@ -28,7 +28,7 @@ public class GameHandler : MonoBehaviour {
     public int map = 0;
     public bool bot = false;
     public GameObject unit;
-    private bool space = true;
+    public bool space = true;
     public bool action = false;
     public TextMeshProUGUI Turn;
     public TextMeshProUGUI ResourceAmount;
@@ -41,6 +41,7 @@ public class GameHandler : MonoBehaviour {
     public int UpgradeP2 = 1;
     public AudioSource Bgm1, Bgm2;
     [SerializeField] public Faction playerTurn;
+    public Image BotScreen;
     void Awake()
     {
         bot = DataHolder.bot;
@@ -175,6 +176,9 @@ public class GameHandler : MonoBehaviour {
         }
         if (GridHandler.Instance.base2.hp < 0) 
         {
+            if(bot)
+                BotScreen.transform.gameObject.SetActive(false);
+            bot = false;
             playerTurn = Faction.None;
             Winner.text = "Игрок1 Победил";
             VictoryScreen.SetActive(true);
@@ -239,6 +243,10 @@ public class GameHandler : MonoBehaviour {
                     ResourceAmount.text = ResourceP1.ToString();
                     playerTurn = Faction.Player1;
                     Turn.text = "Ход Игрока1";
+                    if (bot)
+                    {
+                        BotScreen.transform.gameObject.SetActive(false);
+                    }
                 }
                 space = false;
                 break;
@@ -250,6 +258,12 @@ public class GameHandler : MonoBehaviour {
                     ResourceAmount.text = ResourceP2.ToString();
                     playerTurn = Faction.Player2;
                     Turn.text = "Ход Игрока2";
+                    space = false;
+                    if (bot)
+                    {
+                        BotScreen.transform.gameObject.SetActive(true);
+                        Bot.Instance.BotBeheviour();
+                    }
                 }
                 space = false;
                 break;

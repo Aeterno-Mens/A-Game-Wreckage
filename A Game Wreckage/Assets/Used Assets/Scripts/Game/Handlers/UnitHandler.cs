@@ -7,6 +7,7 @@ public class UnitHandler : MonoBehaviour
 {
     public static UnitHandler Instance;
     public List<GameObject> spawnedUnits = new List<GameObject>();
+    public List<GameObject> botspawnedUnits = new List<GameObject>();
     public int P1max = 0, P2max = 0;
     public GameObject SelectedUnit = null;
     int x, y;
@@ -64,6 +65,10 @@ public class UnitHandler : MonoBehaviour
                     var spawnUnitP2 = Instantiate(GameHandler.Instance.unit);
                     P2max++;
                     spawnedUnits.Add(spawnUnitP2);
+                    if (GameHandler.Instance.bot)
+                    {
+                        botspawnedUnits.Add(spawnUnitP2);
+                    }
                     spawnUnitP2.transform.position = unitNewPos;
                     node.SetIsOccupied(Faction.Player2);
                     spawnUnitP2.GetComponent<BaseUnit>().unitx = x;
