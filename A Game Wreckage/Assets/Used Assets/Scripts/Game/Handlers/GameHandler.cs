@@ -13,7 +13,7 @@ using TMPro;
 public class GameHandler : MonoBehaviour {
 
     [SerializeField] private CameraFollow cameraFollow;
-    [SerializeField] private GameObject PauseMenu;
+    [SerializeField] public GameObject PauseMenu;
     [SerializeField] public GameObject Ipoint1;
     [SerializeField] public GameObject Ipoint2;
     [SerializeField] public GameObject Ipoint3;
@@ -109,10 +109,10 @@ public class GameHandler : MonoBehaviour {
             orthoSize += 10f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && VictoryScreen.activeSelf != true)
             PauseMenu.SetActive(!PauseMenu.activeSelf);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && VictoryScreen.activeSelf != true)
         {
             EndTurn();
         }
@@ -128,9 +128,12 @@ public class GameHandler : MonoBehaviour {
 
     public void Pause()
     {
-        PauseMenu.SetActive(true);
-        //Debug.Log("yay");
-        Time.timeScale = 0f;
+        if (VictoryScreen.activeSelf != true)
+        {
+            PauseMenu.SetActive(true);
+            //Debug.Log("yay");
+            Time.timeScale = 0f;
+        }
     }
 
     public void Resume()
@@ -146,18 +149,21 @@ public class GameHandler : MonoBehaviour {
     }
     public void EndTurn()
     {
-        if (!action)
+        if (!bot || GameState != GameState.Player2Turn)
         {
-            space = true;
-            if (playerTurn == Faction.Player1)
+            if (!action)
             {
-                //playerTurn = Faction.Player2;
-                ChangeState(GameState.Player2Turn);
-            }
-            else if (playerTurn == Faction.Player2)
-            {
-                //playerTurn = Faction.Player1;
-                ChangeState(GameState.Player1Turn);
+                space = true;
+                if (playerTurn == Faction.Player1)
+                {
+                    //playerTurn = Faction.Player2;
+                    ChangeState(GameState.Player2Turn);
+                }
+                else if (playerTurn == Faction.Player2)
+                {
+                    //playerTurn = Faction.Player1;
+                    ChangeState(GameState.Player1Turn);
+                }
             }
         }
     }
@@ -166,6 +172,7 @@ public class GameHandler : MonoBehaviour {
     {
         if (GridHandler.Instance.base1.hp < 0) 
         {
+            PauseMenu.SetActive(false);
             playerTurn = Faction.None;
             Winner.text = "Игрок2 Победил";
             VictoryScreen.SetActive(true);
@@ -179,6 +186,7 @@ public class GameHandler : MonoBehaviour {
             if(bot)
                 BotScreen.transform.gameObject.SetActive(false);
             bot = false;
+            PauseMenu.SetActive(false);
             playerTurn = Faction.None;
             Winner.text = "Игрок1 Победил";
             VictoryScreen.SetActive(true);

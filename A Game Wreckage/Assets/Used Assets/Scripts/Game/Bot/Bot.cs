@@ -26,32 +26,35 @@ public class Bot : MonoBehaviour
         }
         //int g = rnd.Next(1, 3);
         int g = 1;
-        if (UnitHandler.Instance.spawnedUnits.Count < 14)
-        {
-            if (GameHandler.Instance.ResourceP2 > 1000)
-                GameHandler.Instance.Create(player2Units[7]);
-            if (GameHandler.Instance.ResourceP2 > 450)
-                GameHandler.Instance.Create(player2Units[6]);
-            if (GameHandler.Instance.ResourceP2 > 500)
-                GameHandler.Instance.Create(player2Units[5]);
-            if (GameHandler.Instance.ResourceP2 > 400)
-                GameHandler.Instance.Create(player2Units[4]);
-            if (GameHandler.Instance.ResourceP2 > 350)
-                GameHandler.Instance.Create(player2Units[3]);
-            if (GameHandler.Instance.ResourceP2 > 350)
-                GameHandler.Instance.Create(player2Units[1]);
-            if (GameHandler.Instance.ResourceP2 > 150)
-                GameHandler.Instance.Create(player2Units[0]);
-        }
+        
         StartCoroutine(DelayedAction(g, rnd));
     }
 
     IEnumerator DelayedAction(int g, System.Random rnd)
         {
+            yield return new WaitUntil(() => GameHandler.Instance.PauseMenu.activeSelf == false);
+            if (UnitHandler.Instance.spawnedUnits.Count < 14)
+            {
+                if (GameHandler.Instance.ResourceP2 > 1000)
+                    GameHandler.Instance.Create(player2Units[7]);
+                if (GameHandler.Instance.ResourceP2 > 450)
+                    GameHandler.Instance.Create(player2Units[6]);
+                if (GameHandler.Instance.ResourceP2 > 500)
+                    GameHandler.Instance.Create(player2Units[5]);
+                if (GameHandler.Instance.ResourceP2 > 400)
+                    GameHandler.Instance.Create(player2Units[4]);
+                if (GameHandler.Instance.ResourceP2 > 350)
+                    GameHandler.Instance.Create(player2Units[3]);
+                if (GameHandler.Instance.ResourceP2 > 350)
+                    GameHandler.Instance.Create(player2Units[1]);
+                if (GameHandler.Instance.ResourceP2 > 150)
+                    GameHandler.Instance.Create(player2Units[0]);
+            }
             foreach (var unit2 in UnitHandler.Instance.botspawnedUnits)
             {
                 if (unit2.GetComponent<BaseUnit>().Faction == Faction.Player2)
                 {
+                    yield return new WaitUntil(() => GameHandler.Instance.PauseMenu.activeSelf == false);
                     yield return new WaitUntil(() => GameHandler.Instance.action == false);
                     UnitHandler.Instance.SetSelectedUnit(unit2);
                     if (UnitHandler.Instance.SelectedUnit != null)
@@ -98,8 +101,10 @@ public class Bot : MonoBehaviour
                                 GridHandler.Instance.Movement(new Vector3(0, 0), destination.x, destination.y);
                             }
                         }
+                        
                         yield return new WaitUntil(() => GameHandler.Instance.action == false);
                         yield return new WaitForSeconds(0.5f);
+                        yield return new WaitUntil(() => GameHandler.Instance.PauseMenu.activeSelf == false);
                         BotSmash(unit2);
                         yield return new WaitUntil(() => GameHandler.Instance.action == false);
                     }
@@ -149,4 +154,3 @@ public class Bot : MonoBehaviour
     }
 
 }
-

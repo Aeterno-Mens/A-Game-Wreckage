@@ -3498,7 +3498,7 @@ RectTransform:
   - {fileID: 2039663094}
   - {fileID: 359758271}
   m_Father: {fileID: 2065975861}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4370,6 +4370,7 @@ MonoBehaviour:
   map: 1
   bot: 0
   unit: {fileID: 0}
+  space: 1
   action: 0
   Turn: {fileID: 428311008}
   ResourceAmount: {fileID: 1546394506}
@@ -9284,7 +9285,7 @@ RectTransform:
   - {fileID: 440683843}
   - {fileID: 1485325716}
   m_Father: {fileID: 2065975861}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -11211,7 +11212,7 @@ RectTransform:
   - {fileID: 506005373}
   - {fileID: 100422630}
   m_Father: {fileID: 2065975861}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -11862,9 +11863,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1189164654}
-  - {fileID: 595818250}
   - {fileID: 1677317943}
   - {fileID: 1958581980}
+  - {fileID: 595818250}
   - {fileID: 1688553007}
   - {fileID: 1039467707}
   - {fileID: 2072054002}

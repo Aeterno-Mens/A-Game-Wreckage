@@ -209,6 +209,7 @@ public class GridHandler : MonoBehaviour
         UnitHandler.Instance.SelectedUnit.GetComponent<BaseUnit>().gameObject.transform.Find("Moving out").gameObject.GetComponent<AudioSource>().Play();
         for (int i = 0; i < path.Count; ++i)
         {
+            yield return new WaitUntil(() => GameHandler.Instance.PauseMenu.activeSelf == false);
             UnitHandler.Instance.SelectedUnit.transform.position = new Vector3(path[i].x * 10 + 5, path[i].y * 10 + 5);
             if (i > 0)
             {
@@ -236,8 +237,9 @@ public class GridHandler : MonoBehaviour
         damaged.SetActive(true);
         attacking.SetActive(true);
         yield return new WaitForSeconds(delayTime);
+        yield return new WaitUntil(() => GameHandler.Instance.PauseMenu.activeSelf == false);
         //Do the action after the delay time has finished.
-        if(notdead)
+        if (notdead)
             damaged.SetActive(false);
         attacking.SetActive(false);
         GameHandler.Instance.action = false;
